@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DestinationResource\Pages;
 use App\Filament\Resources\DestinationResource\RelationManagers;
 use App\Models\Destination;
+use App\Models\DestinationType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -48,11 +49,12 @@ class DestinationResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                                          ->searchable(),
                 //Tables\Columns\TextColumn::make('area.name'),
-                Tables\Columns\TextColumn::make('destinationType.name'),
+                Tables\Columns\SelectColumn::make('destination_type_id')
+                                           ->label('Type')
+                                           ->options(DestinationType::get()->pluck('name', 'id')),
                 Tables\Columns\TextColumn::make('price_per_pax')
+                                         ->label('Price/pax')
                                          ->prefix('Rp')
-                                         ->numeric(),
-                Tables\Columns\TextColumn::make('pax')
                                          ->numeric(),
             ])
             ->filters([
@@ -69,7 +71,8 @@ class DestinationResource extends Resource
             ->groups([
                 Tables\Grouping\Group::make('area.name')
                                      ->collapsible(),
-            ]);
+            ])
+            ->defaultGroup('area.name');
     }
 
     public static function getRelations(): array
