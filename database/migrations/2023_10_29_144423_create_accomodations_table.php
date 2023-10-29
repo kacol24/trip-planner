@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('area_id');
             $table->string('name');
-            $table->longText('notes');
+            $table->longText('notes')->nullable();
             $table->bigInteger('rate')->nullable();
             $table->timestamps();
             $table->softDeletes();

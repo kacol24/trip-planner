@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AccomodationResource\Pages;
 use App\Filament\Resources\AccomodationResource\RelationManagers;
 use App\Models\Accomodation;
+use App\Models\Area;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,12 +27,12 @@ class AccomodationResource extends Resource
                                        ->relationship('area', 'name')
                                        ->searchable()
                                        ->preload(),
-                Forms\Components\RichEditor::make('notes')
-                                           ->columnSpan(2),
                 Forms\Components\TextInput::make('rate')
                                           ->label('Rate/room/night')
                                           ->numeric()
                                           ->columnSpan(2),
+                Forms\Components\RichEditor::make('notes')
+                                           ->columnSpan(2),
             ]);
     }
 
@@ -39,7 +40,14 @@ class AccomodationResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\SelectColumn::make('area_id')
+                                           ->label('Area')
+                                           ->options(Area::get()->pluck('name', 'id')),
+                Tables\Columns\TextColumn::make('rate')
+                                         ->label('Rate/room/night')
+                                         ->numeric()
+                                         ->prefix('Rp'),
             ])
             ->filters([
                 //
