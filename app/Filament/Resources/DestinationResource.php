@@ -22,8 +22,7 @@ class DestinationResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                                          ->required()
-                                          ->columnSpan(2),
+                                          ->required(),
                 Forms\Components\Select::make('area_id')
                                        ->relationship('area', 'name')
                                        ->searchable()
@@ -34,13 +33,11 @@ class DestinationResource extends Resource
                                        ->searchable()
                                        ->preload()
                                        ->required(),
-                Forms\Components\RichEditor::make('notes')
-                                           ->columnSpan(2),
                 Forms\Components\TextInput::make('price_per_pax')
                                           ->prefix('Rp')
                                           ->numeric(),
-                Forms\Components\TextInput::make('pax')
-                                          ->numeric(),
+                Forms\Components\RichEditor::make('notes')
+                                           ->columnSpan(2),
             ]);
     }
 
@@ -56,9 +53,6 @@ class DestinationResource extends Resource
                                          ->prefix('Rp')
                                          ->numeric(),
                 Tables\Columns\TextColumn::make('pax')
-                                         ->numeric(),
-                Tables\Columns\TextColumn::make('total_price')
-                                         ->prefix('Rp')
                                          ->numeric(),
             ])
             ->filters([

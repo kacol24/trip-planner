@@ -6,26 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Destination extends Model
+class Accomodation extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
         'area_id',
-        'destination_type_id',
         'name',
         'notes',
-        'price_per_pax',
+        'rate',
     ];
 
     public function area()
     {
         return $this->belongsTo(Area::class);
-    }
-
-    public function destinationType()
-    {
-        return $this->belongsTo(DestinationType::class);
     }
 }
