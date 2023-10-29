@@ -14,4 +14,9 @@ class DestinationType extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function destinations()
+    {
+        return $this->hasMany(Destination::class);
+    }
 }
