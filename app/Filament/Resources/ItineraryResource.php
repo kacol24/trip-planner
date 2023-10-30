@@ -138,9 +138,6 @@ class ItineraryResource extends Resource
                                      ->prefix('Rp')
                                      ->disabled(),
                             TextInput::make('pax')
-                                     ->disabled(function (Forms\Get $get) {
-                                         return ! $get('price_per_pax');
-                                     })
                                      ->numeric()
                                      ->live()
                                      ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
