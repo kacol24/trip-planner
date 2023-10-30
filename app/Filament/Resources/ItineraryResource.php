@@ -81,7 +81,7 @@ class ItineraryResource extends Resource
                             $template = '{TOD} -- {title} (Rp{price} = Rp{total})';
 
                             $destination = Destination::find($state['destination_id']);
-                            $title = $destination->dropdown_name;
+                            $title = optional($destination)->dropdown_name;
                             $tod = $state['time_of_day'];
                             $pricePerPax = $destination->price_per_pax;
                             $pax = $state['pax'];
