@@ -78,6 +78,7 @@ class ItineraryResource extends Resource
                         ->defaultItems(0)
                         ->columns(3)
                         ->columnSpan(2)
+                        ->collapsed(true)
                         ->itemLabel(function ($state) {
                             $destination = Destination::find($state['destination_id']);
 
