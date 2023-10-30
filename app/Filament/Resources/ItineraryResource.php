@@ -112,7 +112,11 @@ class ItineraryResource extends Resource
                                   ->searchable()
                                   ->preload()
                                   ->live()
-                                  ->options(Destination::get()->pluck('dropdown_name', 'id'))
+                                //->options(Destination::get()->pluck('dropdown_name', 'id'))
+                                  ->relationship('destination')
+                                  ->getOptionLabelFromRecordUsing(function (Destination $record) {
+                                      return $record->dropdown_name;
+                                  })
                                   ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
                                       $entity = Destination::find($state);
                                       $pricePerPax = optional($entity)->price_per_pax;
@@ -130,7 +134,26 @@ class ItineraryResource extends Resource
 
                                       $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
                                       $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                  }),
+                                  })
+                                  ->createOptionForm([
+                                      Forms\Components\TextInput::make('name')
+                                                                ->required(),
+                                      Forms\Components\Select::make('area_id')
+                                                             ->relationship('area', 'name')
+                                                             ->searchable()
+                                                             ->preload()
+                                                             ->required(),
+                                      Forms\Components\Select::make('destination_type_id')
+                                                             ->relationship('destinationType', 'name')
+                                                             ->searchable()
+                                                             ->preload()
+                                                             ->required(),
+                                      Forms\Components\TextInput::make('price_per_pax')
+                                                                ->prefix('Rp')
+                                                                ->numeric(),
+                                      Forms\Components\RichEditor::make('notes')
+                                                                 ->columnSpan(2),
+                                  ]),
                             Select::make('time_of_day')
                                   ->options(Schedule::TIME_OF_DAY),
                             TextInput::make('notes'),
