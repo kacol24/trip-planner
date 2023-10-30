@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transportations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('price')->nullable();
+            $table->bigInteger('rate')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

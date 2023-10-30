@@ -21,8 +21,9 @@ class TransportationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name'),
-                Forms\Components\TextInput::make('price')
+                Forms\Components\TextInput::make('name')
+                                          ->required(),
+                Forms\Components\TextInput::make('rate')
                                           ->prefix('Rp')
                                           ->suffix('/day')
                                           ->numeric(),
@@ -34,7 +35,7 @@ class TransportationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('price')
+                Tables\Columns\TextColumn::make('rate')
                                          ->label('Price/day')
                                          ->prefix('Rp'),
             ])
