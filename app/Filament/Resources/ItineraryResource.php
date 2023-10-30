@@ -78,9 +78,13 @@ class ItineraryResource extends Resource
                         ->columns(3)
                         ->columnSpan(2)
                         ->itemLabel(function ($state) {
+                            $destination = Destination::find($state['destination_id']);
+
+                            if (! $destination) {
+                                return null;
+                            }
                             $template = '{TOD} -- {title} (Rp{price} = Rp{total})';
 
-                            $destination = Destination::find($state['destination_id']);
                             $title = optional($destination)->dropdown_name;
                             $tod = $state['time_of_day'];
                             $pricePerPax = optional($destination)->price_per_pax;
@@ -93,7 +97,7 @@ class ItineraryResource extends Resource
                                     '{TOD}', '{title}', '{price}', '{total}',
                                 ],
                                 [
-                                    Schedule::TIME_OF_DAY[$tod], $title, $price, $total,
+                                    Schedule::TIME_OF_DAY[$tod] ?? null, $title, $price, $total,
                                 ],
                                 $template
                             );
