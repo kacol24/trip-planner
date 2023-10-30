@@ -97,7 +97,7 @@ class ScheduleResource extends Resource
                                              '30-evening' => 'evening',
                                              '40-night' => 'night',
                                          }),
-                Tables\Columns\TextColumn::make('notes'),
+                Tables\Columns\TextInputColumn::make('notes'),
                 Tables\Columns\TextColumn::make('destination.price_per_pax')
                                          ->label('Cost')
                                          ->prefix('Rp')
