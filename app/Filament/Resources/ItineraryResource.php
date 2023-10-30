@@ -112,7 +112,6 @@ class ItineraryResource extends Resource
                                   ->searchable()
                                   ->preload()
                                   ->live()
-                                //->options(Destination::get()->pluck('dropdown_name', 'id'))
                                   ->relationship('destination')
                                   ->getOptionLabelFromRecordUsing(function (Destination $record) {
                                       return $record->dropdown_name;
