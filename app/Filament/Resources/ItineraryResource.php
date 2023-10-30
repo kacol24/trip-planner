@@ -83,7 +83,7 @@ class ItineraryResource extends Resource
                             $destination = Destination::find($state['destination_id']);
                             $title = optional($destination)->dropdown_name;
                             $tod = $state['time_of_day'];
-                            $pricePerPax = $destination->price_per_pax;
+                            $pricePerPax = optional($destination)->price_per_pax;
                             $pax = $state['pax'];
                             $price = number_format($pricePerPax, 0, ',', '.').' x '.$pax;
                             $total = number_format($pricePerPax * $pax, 0, ',', '.');
