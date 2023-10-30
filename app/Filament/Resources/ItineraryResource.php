@@ -75,6 +75,7 @@ class ItineraryResource extends Resource
                         ->collapsible()
                         ->relationship()
                         ->orderColumn()
+                        ->defaultItems(0)
                         ->columns(3)
                         ->columnSpan(2)
                         ->itemLabel(function ($state) {
