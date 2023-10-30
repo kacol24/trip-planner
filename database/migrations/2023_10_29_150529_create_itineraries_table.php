@@ -20,7 +20,7 @@ return new class extends Migration{
             $table->string('theme')->nullable();
             $table->longText('notes')->nullable();
 
-            $table->bigInteger('room_rate');
+            $table->bigInteger('room_rate')->nullable();
             $table->tinyInteger('room_count')->nullable();
 
             $table->tinyInteger('distance')->nullable();

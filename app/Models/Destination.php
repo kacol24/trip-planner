@@ -28,4 +28,12 @@ class Destination extends Model
     {
         return $this->belongsTo(DestinationType::class);
     }
+
+    public function getDropdownNameAttribute()
+    {
+        $area = strtoupper($this->area->name);
+        $type = strtoupper($this->destinationType->name);
+
+        return "[$area] $type > $this->name";
+    }
 }

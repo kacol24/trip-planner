@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DestinationType extends Model
 {
+    const TYPE_WISATA = 4;
+
+    const TYPE_KULINER = 5;
+
     use HasFactory;
     use SoftDeletes;
 

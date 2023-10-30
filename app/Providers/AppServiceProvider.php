@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        FilamentColor::register([
+            'morning'   => Color::Yellow,
+            'afternoon' => Color::Sky,
+            'evening'   => Color::Orange,
+            'night'     => Color::Violet,
+        ]);
     }
 }
