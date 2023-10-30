@@ -57,7 +57,7 @@ class ScheduleResource extends Resource
                                            $set('total_price', number_format($totalPrice, 0, ',', '.'));
                                        }),
                 TextInput::make('notes'),
-                Tables\Columns\Layout\Grid::make(3)->schema([
+                Forms\Components\Grid::make(3)->schema([
                     TextInput::make('price_per_pax')
                              ->disabled()
                              ->prefix('Rp'),
