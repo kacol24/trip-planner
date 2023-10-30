@@ -162,6 +162,7 @@ class ItineraryResource extends Resource
                                          ->formatStateUsing(function ($state) {
                                              return strtoupper(Carbon::parse($state)->format('d D'));
                                          }),
+                Tables\Columns\TextColumn::make('theme'),
                 Tables\Columns\TextColumn::make('accomodation_column')
                                          ->label('Accomodation')
                                          ->html(),
