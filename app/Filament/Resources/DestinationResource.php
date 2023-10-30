@@ -62,6 +62,12 @@ class DestinationResource extends Resource
                                          ->numeric(),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('area_id')
+                                           ->label('Area')
+                                           ->relationship('area', 'name')
+                                           ->searchable()
+                                           ->preload()
+                                           ->multiple(),
                 Tables\Filters\SelectFilter::make('destination_type_id')
                                            ->label('Type')
                                            ->relationship('destinationType', 'name')
