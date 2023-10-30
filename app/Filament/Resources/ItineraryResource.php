@@ -92,7 +92,7 @@ class ItineraryResource extends Resource
                             $price = number_format($pricePerPax, 0, ',', '.').' x '.$pax;
                             $total = number_format($pricePerPax * $pax, 0, ',', '.');
 
-                            if ($price || $total) {
+                            if ($price > 0 || $total > 0) {
                                 $title = $title.' (Rp'.$price.' = Rp'.$total.')';
                             }
 
