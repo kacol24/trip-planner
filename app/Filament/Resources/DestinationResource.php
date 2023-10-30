@@ -85,9 +85,11 @@ class DestinationResource extends Resource
             ])
             ->groups([
                 Tables\Grouping\Group::make('area.name')
-                                     ->collapsible(),
+                                     ->collapsible()
+                                     ->titlePrefixedWithLabel(false),
                 Tables\Grouping\Group::make('destinationType.name')
-                                     ->collapsible(),
+                                     ->collapsible()
+                                     ->titlePrefixedWithLabel(false),
             ]);
     }
 
