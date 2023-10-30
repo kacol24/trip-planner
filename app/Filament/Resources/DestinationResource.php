@@ -86,8 +86,9 @@ class DestinationResource extends Resource
             ->groups([
                 Tables\Grouping\Group::make('area.name')
                                      ->collapsible(),
-            ])
-            ->defaultGroup('area.name');
+                Tables\Grouping\Group::make('destinationType.name')
+                                     ->collapsible(),
+            ]);
     }
 
     public static function getRelations(): array
