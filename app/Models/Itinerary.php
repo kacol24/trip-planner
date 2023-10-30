@@ -59,7 +59,7 @@ class Itinerary extends Model
 
     public function getTransporationCostAttribute()
     {
-        return $this->transportation->rate + $this->fuel_cost;
+        return optional($this->transportation)->rate + $this->fuel_cost;
     }
 
     public function getWisataCostAttribute()
