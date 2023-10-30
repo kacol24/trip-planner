@@ -84,8 +84,6 @@ class ItineraryResource extends Resource
                             if (! $destination) {
                                 return null;
                             }
-                            $template = '{TOD} - {title} (Rp{price} = Rp{total})';
-
                             $title = optional($destination)->dropdown_name;
                             $tod = $state['time_of_day'];
                             $pricePerPax = optional($destination)->price_per_pax;
@@ -94,22 +92,16 @@ class ItineraryResource extends Resource
                             $price = number_format($pricePerPax, 0, ',', '.').' x '.$pax;
                             $total = number_format($pricePerPax * $pax, 0, ',', '.');
 
-                            $title = str_replace(
-                                [
-                                    '{title}', '{price}', '{total}',
-                                ],
-                                [
-                                    $title, $price, $total,
-                                ],
-                                $template
-                            );
+                            if ($price || $total) {
+                                $title = $title.' (Rp'.$price.' = Rp'.$total.')';
+                            }
 
                             if (isset(Schedule::TIME_OF_DAY[$tod])) {
-                                $title = Schedule::TIME_OF_DAY[$tod] . ' - ' . $title;
+                                $title = Schedule::TIME_OF_DAY[$tod].' - '.$title;
                             }
 
                             if ($notes) {
-                                $title = $title . ' | ' . $notes;
+                                $title = $title.' | '.$notes;
                             }
 
                             return $title;
