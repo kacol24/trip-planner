@@ -17,6 +17,8 @@ class DestinationTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Lookup Tables';
+
     public static function form(Form $form): Form
     {
         return $form
