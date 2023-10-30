@@ -56,25 +56,28 @@ class ScheduleResource extends Resource
                                            $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
                                            $set('total_price', number_format($totalPrice, 0, ',', '.'));
                                        }),
-                TextInput::make('price_per_pax')
-                         ->disabled()
-                         ->prefix('Rp'),
-                TextInput::make('pax')
-                         ->disabled(function (Forms\Get $get) {
-                             return ! $get('price_per_pax');
-                         })
-                         ->numeric()
-                         ->live()
-                         ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                             $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                             $pax = $state;
-                             $totalPrice = $pricePerPax * $pax;
+                TextInput::make('notes'),
+                Tables\Columns\Layout\Grid::make(3)->schema([
+                    TextInput::make('price_per_pax')
+                             ->disabled()
+                             ->prefix('Rp'),
+                    TextInput::make('pax')
+                             ->disabled(function (Forms\Get $get) {
+                                 return ! $get('price_per_pax');
+                             })
+                             ->numeric()
+                             ->live()
+                             ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
+                                 $pax = $state;
+                                 $totalPrice = $pricePerPax * $pax;
 
-                             $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                         }),
-                TextInput::make('total_price')
-                         ->prefix('Rp')
-                         ->disabled(),
+                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                             }),
+                    TextInput::make('total_price')
+                             ->prefix('Rp')
+                             ->disabled(),
+                ]),
             ]);
     }
 
