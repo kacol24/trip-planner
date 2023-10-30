@@ -84,24 +84,35 @@ class ItineraryResource extends Resource
                             if (! $destination) {
                                 return null;
                             }
-                            $template = '{TOD} -- {title} (Rp{price} = Rp{total})';
+                            $template = '{TOD} - {title} (Rp{price} = Rp{total})';
 
                             $title = optional($destination)->dropdown_name;
                             $tod = $state['time_of_day'];
                             $pricePerPax = optional($destination)->price_per_pax;
                             $pax = $state['pax'];
+                            $notes = $state['notes'];
                             $price = number_format($pricePerPax, 0, ',', '.').' x '.$pax;
                             $total = number_format($pricePerPax * $pax, 0, ',', '.');
 
-                            return str_replace(
+                            $title = str_replace(
                                 [
-                                    '{TOD}', '{title}', '{price}', '{total}',
+                                    '{title}', '{price}', '{total}',
                                 ],
                                 [
-                                    Schedule::TIME_OF_DAY[$tod] ?? null, $title, $price, $total,
+                                    $title, $price, $total,
                                 ],
                                 $template
                             );
+
+                            if (isset(Schedule::TIME_OF_DAY[$tod])) {
+                                $title = Schedule::TIME_OF_DAY[$tod] . ' - ' . $title;
+                            }
+
+                            if ($notes) {
+                                $title = $title . ' | ' . $notes;
+                            }
+
+                            return $title;
                         })
                         ->schema([
                             Select::make('destination_id')
