@@ -123,7 +123,12 @@ class ScheduleResource extends Resource
                                          ->numeric(0, ',', '.'),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('itinerary_id')
+                                           ->label('Day')
+                                           ->relationship('itinerary', 'date')
+                                           ->searchable()
+                                           ->preload()
+                                           ->multiple(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
