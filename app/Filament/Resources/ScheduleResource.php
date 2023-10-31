@@ -125,7 +125,7 @@ class ScheduleResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('itinerary_id')
                                            ->label('Day')
-                                           ->relationship('itinerary', 'date')
+                                           ->options(Itinerary::get()->pluck('dropdown_name', 'id'))
                                            ->searchable()
                                            ->preload()
                                            ->multiple(),
