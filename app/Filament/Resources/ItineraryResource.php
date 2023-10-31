@@ -10,6 +10,7 @@ use App\Models\Itinerary;
 use App\Models\Schedule;
 use App\Models\Transportation;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,43 +35,72 @@ class ItineraryResource extends Resource
                 Forms\Components\DatePicker::make('date')
                                            ->unique('itineraries', 'date', ignoreRecord: true)
                                            ->required()
+                                           ->columnSpan([
+                                               'default' => 2,
+                                               'sm'      => 1,
+                                           ])
                                            ->native(false),
-                TextInput::make('theme'),
+                TextInput::make('theme')
+                         ->columnSpan([
+                             'default' => 2,
+                             'sm'      => 1,
+                         ]),
                 Forms\Components\RichEditor::make('notes')
                                            ->columnSpan(2),
-                Forms\Components\Grid::make(3)->schema([
-                    Select::make('accomodation_id')
-                          ->relationship('accomodation', 'name')
-                          ->searchable()
-                          ->preload()
-                          ->live()
-                          ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
-                              $accomodation = Accomodation::find($state);
+                Grid::make([
+                    'default' => 2,
+                    'sm'      => 3,
+                ])
+                    ->columnSpan(2)
+                    ->schema([
+                        Select::make('accomodation_id')
+                              ->relationship('accomodation', 'name')
+                              ->searchable()
+                              ->preload()
+                              ->live()
+                              ->columnSpan([
+                                  'default' => 2,
+                                  'sm'      => 1,
+                              ])
+                              ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
+                                  $accomodation = Accomodation::find($state);
 
-                              return $set('room_rate', optional($accomodation)->rate);
-                          }),
-                    TextInput::make('room_rate')
-                             ->prefix('Rp')
-                             ->numeric(),
-                    TextInput::make('room_count')
-                             ->numeric(),
-                ]),
-                Forms\Components\Grid::make(3)->schema([
-                    Select::make('transportation_id')
-                          ->relationship('transportation', 'name')
-                          ->live()
-                          ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
-                              $entity = Transportation::find($state);
+                                  return $set('room_rate', optional($accomodation)->rate);
+                              }),
+                        TextInput::make('room_rate')
+                                 ->prefix('Rp')
+                                 ->columnSpan(1)
+                                 ->numeric(),
+                        TextInput::make('room_count')
+                                 ->columnSpan(1)
+                                 ->numeric(),
+                    ]),
+                Grid::make([
+                    'default' => 2,
+                    'sm'      => 3,
+                ])
+                    ->columnSpan(2)
+                    ->schema([
+                        Select::make('transportation_id')
+                              ->relationship('transportation', 'name')
+                              ->live()
+                              ->columnSpan([
+                                  'default' => 2,
+                                  'sm'      => 1,
+                              ])
+                              ->native(false)
+                              ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
+                                  $entity = Transportation::find($state);
 
-                              return $set('transporation_rate', $entity->rate);
-                          }),
-                    TextInput::make('transporation_rate')
-                             ->prefix('Rp')
-                             ->numeric(),
-                    TextInput::make('distance')
-                             ->numeric()
-                             ->suffix('Km'),
-                ]),
+                                  return $set('transporation_rate', $entity->rate);
+                              }),
+                        TextInput::make('transporation_rate')
+                                 ->prefix('Rp')
+                                 ->numeric(),
+                        TextInput::make('distance')
+                                 ->numeric()
+                                 ->suffix('Km'),
+                    ]),
                 Repeater::make('schedules')
                         ->collapsible()
                         ->relationship()
