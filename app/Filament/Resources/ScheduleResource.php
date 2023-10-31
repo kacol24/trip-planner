@@ -111,14 +111,6 @@ class ScheduleResource extends Resource
                                          ->description(function (Schedule $record) {
                                              return $record->destination->destinationType->name;
                                          }),
-                Tables\Columns\TextColumn::make('time_of_day')
-                                         ->badge()
-                                         ->color(fn(string $state): string => match ($state) {
-                                             '10-morning' => 'morning',
-                                             '20-afternoon' => 'afternoon',
-                                             '30-evening' => 'evening',
-                                             '40-night' => 'night',
-                                         }),
                 Tables\Columns\TextInputColumn::make('notes'),
                 Tables\Columns\TextColumn::make('destination.price_per_pax')
                                          ->label('Cost')
