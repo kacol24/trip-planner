@@ -105,8 +105,9 @@ class ItineraryResource extends Resource
                         ->collapsible()
                         ->relationship()
                         ->orderColumn()
+                        ->reorderableWithButtons()
+                        ->reorderableWithDragAndDrop(false)
                         ->defaultItems(0)
-                        ->columns(3)
                         ->columnSpan(2)
                         ->collapsed(true)
                         ->itemLabel(function ($state) {
@@ -127,9 +128,9 @@ class ItineraryResource extends Resource
                                 $title = $title.' (Rp'.$price.' = Rp'.$total.')';
                             }
 
-                            if (isset(Schedule::TIME_OF_DAY[$tod])) {
-                                $title = Schedule::TIME_OF_DAY[$tod].' - '.$title;
-                            }
+                            //if (isset(Schedule::TIME_OF_DAY[$tod])) {
+                            //    $title = Schedule::TIME_OF_DAY[$tod].' - '.$title;
+                            //}
 
                             if ($notes) {
                                 $title = $title.' | '.$notes;
@@ -140,6 +141,10 @@ class ItineraryResource extends Resource
                         ->schema([
                             Select::make('destination_id')
                                   ->label('Destination')
+                                  ->columnSpan([
+                                      'default' => 3,
+                                      'sm'      => 1,
+                                  ])
                                   ->searchable()
                                   ->preload()
                                   ->live()
@@ -185,24 +190,46 @@ class ItineraryResource extends Resource
                                                                  ->columnSpan(2),
                                   ]),
                             Select::make('time_of_day')
+                                  ->columnSpan([
+                                      'default' => 3,
+                                      'sm'      => 1,
+                                  ])
                                   ->options(Schedule::TIME_OF_DAY),
-                            TextInput::make('notes'),
-                            TextInput::make('price_per_pax')
-                                     ->prefix('Rp')
-                                     ->disabled(),
-                            TextInput::make('pax')
-                                     ->numeric()
-                                     ->live()
-                                     ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                         $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                                         $pax = $state;
-                                         $totalPrice = $pricePerPax * $pax;
+                            TextInput::make('notes')
+                                     ->columnSpan(3),
+                            Grid::make([
+                                'default' => 2,
+                                'sm'      => 3,
+                            ])
+                                ->columnSpan(3)
+                                ->schema([
+                                    TextInput::make('price_per_pax')
+                                             ->columnSpan(1)
+                                             ->prefix('Rp')
+                                             ->disabled(),
+                                    TextInput::make('pax')
+                                             ->columnSpan(1)
+                                             ->numeric()
+                                             ->live()
+                                             ->afterStateUpdated(function (
+                                                 Forms\Set $set,
+                                                 Forms\Get $get,
+                                                 ?string $state
+                                             ) {
+                                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
+                                                 $pax = $state;
+                                                 $totalPrice = $pricePerPax * $pax;
 
-                                         $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                     }),
-                            TextInput::make('total_price')
-                                     ->prefix('Rp')
-                                     ->disabled(),
+                                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                             }),
+                                    TextInput::make('total_price')
+                                             ->columnSpan([
+                                                 'default' => 2,
+                                                 'sm'      => 1,
+                                             ])
+                                             ->prefix('Rp')
+                                             ->disabled(),
+                                ]),
                         ]),
             ]);
     }
