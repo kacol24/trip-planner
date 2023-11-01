@@ -217,18 +217,23 @@ class ItineraryResource extends Resource
                                          }),
                 Tables\Columns\TextColumn::make('theme'),
                 Tables\Columns\TextColumn::make('accomodation_column')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Accomodation')
                                          ->html(),
                 Tables\Columns\TextColumn::make('transportation_column')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Transportation')
                                          ->html(),
                 Tables\Columns\TextColumn::make('wisata_cost')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->numeric(0, ',', '.')
                                          ->prefix('Rp'),
                 Tables\Columns\TextColumn::make('kuliner_cost')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->numeric(0, ',', '.')
                                          ->prefix('Rp'),
                 Tables\Columns\TextColumn::make('total_for_the_day')
+                                         ->toggleable()
                                          ->numeric(0, ',', '.')
                                          ->prefix('Rp'),
             ])

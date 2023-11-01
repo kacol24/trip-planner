@@ -106,18 +106,23 @@ class ScheduleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make('destination.name')
                                          ->description(function (Schedule $record) {
                                              return $record->destination->destinationType->name;
                                          }),
-                Tables\Columns\TextInputColumn::make('notes'),
+                Tables\Columns\TextColumn::make('notes')
+                                         ->html(),
                 Tables\Columns\TextColumn::make('destination.price_per_pax')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Cost')
                                          ->prefix('Rp')
                                          ->numeric(0, ',', '.'),
-                Tables\Columns\TextInputColumn::make('pax'),
+                Tables\Columns\TextInputColumn::make('pax')
+                                              ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('total_cost')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Total')
                                          ->prefix('Rp')
                                          ->numeric(0, ',', '.'),
@@ -164,9 +169,9 @@ class ScheduleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListSchedules::route('/'),
-            'create' => Pages\CreateSchedule::route('/create'),
-            'edit'   => Pages\EditSchedule::route('/{record}/edit'),
+            'index' => Pages\ManageSchedules::route('/'),
+            //'create' => Pages\CreateSchedule::route('/create'),
+            //'edit'   => Pages\EditSchedule::route('/{record}/edit'),
         ];
     }
 }
