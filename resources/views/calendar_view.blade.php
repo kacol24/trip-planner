@@ -80,7 +80,7 @@
                         <table class="w-100">
                             <tr>
                                 <td>
-                                    Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
+                                    Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}<br>
                                     + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }}
                                     ({{ $itinerary->distance }}km)
                                 </td>
