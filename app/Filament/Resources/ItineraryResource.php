@@ -92,7 +92,7 @@ class ItineraryResource extends Resource
                               ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
                                   $entity = Transportation::find($state);
 
-                                  return $set('transportation_rate', $entity->rate);
+                                  return $set('transportation_rate', optional($entity)->rate);
                               }),
                         TextInput::make('transportation_rate')
                                  ->prefix('Rp')

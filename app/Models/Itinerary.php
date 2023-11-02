@@ -20,7 +20,7 @@ class Itinerary extends Model
         'room_rate',
         'room_count',
         'distance',
-        'transporation_rate',
+        'transportation_rate',
     ];
 
     protected $casts = [
