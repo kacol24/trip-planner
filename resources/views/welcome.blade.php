@@ -18,24 +18,21 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
-                        <div class="text-center">
-                            <strong>
-                                {{ $itinerary->theme }}
-                            </strong>
-                        </div>
-                        <em>
-                            {!! $itinerary->notes !!}
-                        </em>
-                    </td>
-                </tr>
-                <tr>
                     <td class="p-0">
                         <table class="table table-bordered m-0 border-dark">
                             <thead>
                             <tr>
                                 <th></th>
-                                <th></th>
+                                <td>
+                                    <div class="text-center">
+                                        <strong>
+                                            {{ $itinerary->theme }}
+                                        </strong>
+                                    </div>
+                                    <em class="font-sm">
+                                        {!! $itinerary->notes !!}
+                                    </em>
+                                </td>
                                 <th class="text-end text-nowrap" style="width: 300px;">
                                     TOTAL: Rp{{ number_format($itinerary->total_for_the_day, 0, ',', '.') }}
                                 </th>
