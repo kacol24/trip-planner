@@ -127,7 +127,7 @@
             <tr>
                 <th>THEME</th>
                 @foreach($itineraries as $itinerary)
-                    <td class="fw-bold" style="width: 300px;">
+                    <td class="fw-bold">
                         {{ $itinerary->theme }}
                     </td>
                 @endforeach
