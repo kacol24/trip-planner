@@ -37,15 +37,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <em class="font-sm">
-                                        {!! $itinerary->notes !!}
-                                    </em>
-                                </td>
-                                <td></td>
-                            </tr>
+                            @if($itinerary->notes)
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <em class="font-sm">
+                                            {!! $itinerary->notes !!}
+                                        </em>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td style="width: 300px;">
                                     AKOMODASI
