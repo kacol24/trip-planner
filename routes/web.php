@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $itineraries = Itinerary::orderBy('date')->get();
+
+    return view('welcome', compact('itineraries'));
 });
 
 Route::get('/calendar', function (){
