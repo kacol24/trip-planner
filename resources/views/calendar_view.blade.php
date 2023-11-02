@@ -147,7 +147,6 @@
                         <table class="w-100 table table-bordered table-sm m-0">
                             @foreach($itinerary->schedules as $schedule)
                                 <tr @class([
-                                        'border-dark',
                                         'border-bottom-0' => $schedule->total_cost || $schedule->last,
                                         'table-success' => $schedule->time_of_day == '10-morning',
                                         'table-info' => $schedule->time_of_day == '20-afternoon',
@@ -167,7 +166,6 @@
                                 </tr>
                                 @if($schedule->total_cost)
                                     <tr @class([
-                                            'border-dark',
                                             'table-success' => $schedule->time_of_day == '10-morning',
                                             'table-info' => $schedule->time_of_day == '20-afternoon',
                                             'table-warning' => $schedule->time_of_day == '30-evening',
