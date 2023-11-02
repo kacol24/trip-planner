@@ -96,7 +96,7 @@
                 <th>Meals</th>
                 @foreach($itineraries as $itinerary)
                     <td class="text-end">
-                        Rp{{ number_format($itinerary->meals_cost, 0, ',', '.') }}
+                        Rp{{ number_format($itinerary->kuliner_cost, 0, ',', '.') }}
                     </td>
                 @endforeach
             </tr>
