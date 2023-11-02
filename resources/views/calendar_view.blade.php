@@ -62,8 +62,10 @@
                         <table class="w-100">
                             <tr>
                                 <td>
-                                    Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
-                                    x {{ $itinerary->room_count }}
+                                    @if($itinerary->room_rate)
+                                        Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
+                                        x {{ $itinerary->room_count }}
+                                    @endif
                                 </td>
                                 <th class="text-end">
                                     = Rp{{ number_format($itinerary->accomodation_cost, 0, ',', '.') }}
