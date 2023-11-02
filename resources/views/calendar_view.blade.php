@@ -135,7 +135,7 @@
             <tr>
                 <td>NOTES</td>
                 @foreach($itineraries as $itinerary)
-                    <td style="width: 150px;max-width: 150px">
+                    <td style="width: 150px;max-width: 150px" class="text-wrap">
                         {!! $itinerary->notes !!}
                     </td>
                 @endforeach
