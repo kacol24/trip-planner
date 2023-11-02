@@ -146,20 +146,24 @@
                     <td class="p-0">
                         <table class="w-100 table table-bordered table-sm m-0">
                             @foreach($itinerary->schedules as $schedule)
-                                <tr>
+                                <tr @class(['border-dark', 'border-bottom-0' => $schedule->total_cost || $schedule->last])>
                                     <td colspan="2"
                                         style="height: {{ $schedule->total_cost ? 'auto' : '66px' }}"
-                                        @class(['fw-bold' => $schedule->destination->destination_type_id == App\Models\DestinationType::TYPE_KULINER])>
+                                        @class([
+                                            'border-bottom-0',
+                                            'fw-bold' => $schedule->destination->destination_type_id == App\Models\DestinationType::TYPE_KULINER
+                                        ])
+                                    >
                                         {{ $schedule->destination->name }}
                                     </td>
                                 </tr>
                                 @if($schedule->total_cost)
-                                    <tr>
-                                        <td class="text-end">
+                                    <tr class="border-dark border-top-0">
+                                        <td class="text-end border-top-0 border-end-0">
                                             Rp{{ number_format($schedule->price_per_pax, 0, ',', '.') }}
                                             x {{ $schedule->pax }}
                                         </td>
-                                        <td class="text-end">
+                                        <td class="text-end border-top-0 border-start-0">
                                             Rp{{ number_format($schedule->total_cost, 0, ',', '.') }}
                                         </td>
                                     </tr>
