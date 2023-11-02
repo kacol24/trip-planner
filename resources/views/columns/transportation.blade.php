@@ -8,7 +8,7 @@
         <tr>
             <td>Rate</td>
             <td style="text-align: right;">
-                Rp{{ number_format($transporation->rate, 0, ',', '.') }}
+                Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
             </td>
         </tr>
         <tr>

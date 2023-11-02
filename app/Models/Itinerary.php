@@ -57,9 +57,9 @@ class Itinerary extends Model
         return $this->distance / 10 * self::FUEL_PRICE;
     }
 
-    public function getTransporationCostAttribute()
+    public function getTransportationCostAttribute()
     {
-        return optional($this->transportation)->rate + $this->fuel_cost;
+        return $this->transportation_rate + $this->fuel_cost;
     }
 
     public function getWisataCostAttribute()
@@ -82,7 +82,7 @@ class Itinerary extends Model
 
     public function getTotalForTheDayAttribute()
     {
-        return $this->accomodation_cost + $this->transporation_cost + $this->wisata_cost + $this->kuliner_cost;
+        return $this->accomodation_cost + $this->transportation_cost + $this->wisata_cost + $this->kuliner_cost;
     }
 
     public function getAccomodationColumnAttribute()

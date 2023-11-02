@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Itinerary;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/calendar', function (){
+    $itineraries = Itinerary::orderBy('date')->get();
+
+    return view('calendar_view', compact('itineraries'));
 });

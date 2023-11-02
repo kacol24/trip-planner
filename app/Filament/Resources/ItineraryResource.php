@@ -92,9 +92,9 @@ class ItineraryResource extends Resource
                               ->afterStateUpdated(function (Forms\Set $set, ?string $state) {
                                   $entity = Transportation::find($state);
 
-                                  return $set('transporation_rate', $entity->rate);
+                                  return $set('transportation_rate', $entity->rate);
                               }),
-                        TextInput::make('transporation_rate')
+                        TextInput::make('transportation_rate')
                                  ->prefix('Rp')
                                  ->numeric(),
                         TextInput::make('distance')
@@ -268,6 +268,7 @@ class ItineraryResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
