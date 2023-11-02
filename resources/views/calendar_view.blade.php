@@ -143,7 +143,7 @@
             <tr>
                 <td></td>
                 @foreach($itineraries as $itinerary)
-                    <td class="p-0">
+                    <td class="p-0" style="width: 150px">
                         <table class="w-100 table table-bordered table-sm m-0">
                             @foreach($itinerary->schedules as $schedule)
                                 <tr @class([
