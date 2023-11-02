@@ -116,7 +116,7 @@ class ItineraryResource extends Resource
                             if (! $destination) {
                                 return null;
                             }
-                            $title = optional($destination)->dropdown_name;
+                            $title = optional($destination)->repeater_title;
                             $tod = $state['time_of_day'];
                             $pricePerPax = optional($destination)->price_per_pax;
                             $pax = $state['pax'];

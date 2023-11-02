@@ -49,6 +49,8 @@ class DestinationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                                          ->searchable(),

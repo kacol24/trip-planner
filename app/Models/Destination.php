@@ -36,4 +36,18 @@ class Destination extends Model
 
         return "[$area] $type > $this->name";
     }
+
+    public function getRepeaterTitleAttribute()
+    {
+        $area = strtoupper($this->area->name);
+        $type = strtoupper($this->destinationType->name);
+
+        $title = "$type > $this->name";
+
+        if ($this->destination_type_id != DestinationType::TYPE_OTW) {
+            $title = "[$area] " . $title;
+        }
+
+        return $title;
+    }
 }

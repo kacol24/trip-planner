@@ -12,6 +12,8 @@ class DestinationType extends Model
 
     const TYPE_KULINER = 2;
 
+    const TYPE_OTW = 5;
+
     use HasFactory;
     use SoftDeletes;
 
