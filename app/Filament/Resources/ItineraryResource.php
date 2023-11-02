@@ -237,6 +237,7 @@ class ItineraryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make('date')
                                          ->formatStateUsing(function ($state) {
