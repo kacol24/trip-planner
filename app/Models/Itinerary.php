@@ -39,7 +39,7 @@ class Itinerary extends Model
 
     public function schedules()
     {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(Schedule::class)->orderBy('sort');
     }
 
     public function getDropdownNameAttribute()
