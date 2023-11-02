@@ -146,19 +146,34 @@
                     <td class="p-0">
                         <table class="w-100 table table-bordered table-sm m-0">
                             @foreach($itinerary->schedules as $schedule)
-                                <tr @class(['border-dark', 'border-bottom-0' => $schedule->total_cost || $schedule->last])>
+                                <tr @class([
+                                        'border-dark',
+                                        'border-bottom-0' => $schedule->total_cost || $schedule->last,
+                                        'table-success' => $schedule->time_of_day == '10-morning',
+                                        'table-info' => $schedule->time_of_day == '20-afternoon',
+                                        'table-warning' => $schedule->time_of_day == '30-evening',
+                                        'table-primary' => $schedule->time_of_day == '40-night',
+                                    ])
+                                >
                                     <td colspan="2"
                                         style="height: {{ $schedule->total_cost ? 'auto' : '66px' }}"
                                         @class([
                                             'border-bottom-0',
-                                            'fw-bold' => $schedule->destination->destination_type_id == App\Models\DestinationType::TYPE_KULINER
+                                            'fw-bold' => $schedule->destination->destination_type_id == App\Models\DestinationType::TYPE_KULINER,
                                         ])
                                     >
                                         {{ $schedule->destination->name }}
                                     </td>
                                 </tr>
                                 @if($schedule->total_cost)
-                                    <tr class="border-dark" style="border-top-color: transparent !important">
+                                    <tr @class([
+                                            'border-dark',
+                                            'table-success' => $schedule->time_of_day == '10-morning',
+                                            'table-info' => $schedule->time_of_day == '20-afternoon',
+                                            'table-warning' => $schedule->time_of_day == '30-evening',
+                                            'table-primary' => $schedule->time_of_day == '40-night',
+                                        ])
+                                        style="border-top-color: transparent !important">
                                         <td class="text-end"
                                             style="border-top-color: transparent !important; border-right-color: transparent !important">
                                             Rp{{ number_format($schedule->price_per_pax, 0, ',', '.') }}
