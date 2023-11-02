@@ -39,15 +39,10 @@ class Destination extends Model
 
     public function getRepeaterTitleAttribute()
     {
-        $area = strtoupper($this->area->name);
-        $type = strtoupper($this->destinationType->name);
-
-        $title = "$type > $this->name";
-
         if ($this->destination_type_id != DestinationType::TYPE_OTW) {
-            $title = "[$area] " . $title;
+            return $this->dropdown_name;
         }
 
-        return $title;
+        return $this->name;
     }
 }
