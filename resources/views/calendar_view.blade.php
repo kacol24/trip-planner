@@ -146,6 +146,7 @@
                     <td class="p-0" style="width: 150px">
                         <table class="w-100 table table-bordered table-sm m-0">
                             @foreach($itinerary->schedules as $schedule)
+                                @continue($schedule->destination->destination_type_id == App\Models\DestinationType::TYPE_OTW)
                                 <tr @class([
                                         'border-bottom-0' => $schedule->total_cost || $schedule->last,
                                         'table-success' => $schedule->time_of_day == '10-morning',
