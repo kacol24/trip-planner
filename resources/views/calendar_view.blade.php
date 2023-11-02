@@ -108,7 +108,7 @@
                     </td>
                 @endforeach
             </tr>
-            <tr class="table-success">
+            <tr class="table-secondary">
                 <th class="text-nowrap">
                     TOTAL: Rp{{ number_format($itineraries->sum('total_for_the_day'), 0, ',', '.') }}
                 </th>
