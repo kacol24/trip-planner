@@ -136,7 +136,7 @@
                 <td>NOTES</td>
                 @foreach($itineraries as $itinerary)
                     <td>
-                        {{ $itinerary->notes }}
+                        {!! $itinerary->notes !!}
                     </td>
                 @endforeach
             </tr>
