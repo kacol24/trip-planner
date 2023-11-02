@@ -23,22 +23,24 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <td>
-                                    <div class="text-center">
-                                        <strong>
-                                            {{ $itinerary->theme }}
-                                        </strong>
-                                    </div>
-                                    <em class="font-sm">
-                                        {!! $itinerary->notes !!}
-                                    </em>
-                                </td>
+                                <th class="text-center">
+                                    {{ $itinerary->theme }}
+                                </th>
                                 <th class="text-end text-nowrap" style="width: 300px;">
                                     TOTAL: Rp{{ number_format($itinerary->total_for_the_day, 0, ',', '.') }}
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <em class="font-sm">
+                                        {!! $itinerary->notes !!}
+                                    </em>
+                                </td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td style="width: 300px;">
                                     AKOMODASI
