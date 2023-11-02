@@ -158,13 +158,14 @@
                                     </td>
                                 </tr>
                                 @if($schedule->total_cost)
-                                    <tr class="border-dark" style="border-top-color: transparent">
+                                    <tr class="border-dark" style="border-top-color: transparent !important">
                                         <td class="text-end"
-                                            style="border-top-color: transparent; border-right-color: transparent">
+                                            style="border-top-color: transparent !important; border-right-color: transparent !important">
                                             Rp{{ number_format($schedule->price_per_pax, 0, ',', '.') }}
                                             x {{ $schedule->pax }}
                                         </td>
-                                        <td class="text-end border-top-0" style="border-left-color: transparent">
+                                        <td class="text-end"
+                                            style="border-top-color: transparent !important; border-left-color: transparent !important">
                                             Rp{{ number_format($schedule->total_cost, 0, ',', '.') }}
                                         </td>
                                     </tr>
