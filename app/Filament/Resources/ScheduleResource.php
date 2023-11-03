@@ -25,82 +25,14 @@ class ScheduleResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('itinerary_id')
-                                       ->label('Itinerary')
-                                       ->options(Itinerary::get()->pluck('dropdown_name', 'id'))
-                                       ->required(),
-                Forms\Components\Select::make('time_of_day')
-                                       ->options(Schedule::TIME_OF_DAY),
-                Forms\Components\Select::make('destination_id')
-                                       ->label('Destination')
-                                       ->searchable()
-                                       ->preload()
-                                       ->live()
-                                       ->relationship('destination')
-                                       ->getOptionLabelFromRecordUsing(function (Destination $record) {
-                                           return $record->dropdown_name;
-                                       })
-                                       ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                           $entity = Destination::find($state);
-                                           $pricePerPax = optional($entity)->price_per_pax;
-                                           $pax = $get('pax');
-                                           $totalPrice = optional($entity)->price_per_pax * $pax;
-
-                                           $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
-                                           $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                       })
-                                       ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                           $entity = Destination::find($state);
-                                           $pricePerPax = $entity->price_per_pax;
-                                           $pax = $get('pax');
-                                           $totalPrice = $entity->price_per_pax * $pax;
-
-                                           $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
-                                           $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                       })
-                                       ->createOptionForm([
-                                           Forms\Components\TextInput::make('name')
-                                                                     ->required(),
-                                           Forms\Components\Select::make('area_id')
-                                                                  ->relationship('area', 'name')
-                                                                  ->searchable()
-                                                                  ->preload()
-                                                                  ->required(),
-                                           Forms\Components\Select::make('destination_type_id')
-                                                                  ->relationship('destinationType', 'name')
-                                                                  ->searchable()
-                                                                  ->preload()
-                                                                  ->required(),
-                                           Forms\Components\TextInput::make('price_per_pax')
-                                                                     ->prefix('Rp')
-                                                                     ->numeric(),
-                                           Forms\Components\RichEditor::make('notes')
-                                                                      ->columnSpan(2),
-                                       ]),
-                TextInput::make('notes'),
-                Forms\Components\Grid::make(3)->schema([
-                    TextInput::make('price_per_pax')
-                             ->disabled()
-                             ->prefix('Rp'),
-                    TextInput::make('pax')
-                             ->disabled(function (Forms\Get $get) {
-                                 return ! $get('price_per_pax');
-                             })
-                             ->numeric()
-                             ->live()
-                             ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                                 $pax = $state;
-                                 $totalPrice = $pricePerPax * $pax;
-
-                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                             }),
-                    TextInput::make('total_price')
-                             ->prefix('Rp')
-                             ->disabled(),
-                ]),
-            ]);
+            ->schema(
+                array_merge([
+                    Forms\Components\Select::make('itinerary_id')
+                                           ->label('Itinerary')
+                                           ->options(Itinerary::get()->pluck('dropdown_name', 'id'))
+                                           ->required(),
+                ], self::getSchema())
+            );
     }
 
     public static function table(Table $table): Table
@@ -172,6 +104,87 @@ class ScheduleResource extends Resource
             'index' => Pages\ManageSchedules::route('/'),
             //'create' => Pages\CreateSchedule::route('/create'),
             //'edit'   => Pages\EditSchedule::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getSchema($related = false)
+    {
+        return [
+            Forms\Components\Select::make('destination_id')
+                                   ->label('Destination')
+                                   ->searchable()
+                                   ->preload()
+                                   ->live()
+                                   ->columnSpan(
+                                       $related ? 2 : null
+                                   )
+                                   ->relationship('destination')
+                                   ->getOptionLabelFromRecordUsing(function (Destination $record) {
+                                       return $record->dropdown_name;
+                                   })
+                                   ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                       $entity = Destination::find($state);
+                                       $pricePerPax = optional($entity)->price_per_pax;
+                                       $pax = $get('pax');
+                                       $totalPrice = optional($entity)->price_per_pax * $pax;
+
+                                       $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
+                                       $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                   })
+                                   ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                       $entity = Destination::find($state);
+                                       $pricePerPax = $entity->price_per_pax;
+                                       $pax = $get('pax');
+                                       $totalPrice = $entity->price_per_pax * $pax;
+
+                                       $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
+                                       $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                   })
+                                   ->createOptionForm([
+                                       Forms\Components\TextInput::make('name')
+                                                                 ->required(),
+                                       Forms\Components\Select::make('area_id')
+                                                              ->relationship('area', 'name')
+                                                              ->searchable()
+                                                              ->preload()
+                                                              ->required(),
+                                       Forms\Components\Select::make('destination_type_id')
+                                                              ->relationship('destinationType', 'name')
+                                                              ->searchable()
+                                                              ->preload()
+                                                              ->required(),
+                                       Forms\Components\TextInput::make('price_per_pax')
+                                                                 ->prefix('Rp')
+                                                                 ->numeric(),
+                                       Forms\Components\RichEditor::make('notes')
+                                                                  ->columnSpan(2),
+                                   ])
+                                   ->required(),
+            Forms\Components\Select::make('time_of_day')
+                                   ->options(Schedule::TIME_OF_DAY)
+                                   ->required(),
+            TextInput::make('notes'),
+            Forms\Components\Grid::make(3)->schema([
+                TextInput::make('price_per_pax')
+                         ->disabled()
+                         ->prefix('Rp'),
+                TextInput::make('pax')
+                         ->disabled(function (Forms\Get $get) {
+                             return ! $get('price_per_pax');
+                         })
+                         ->numeric()
+                         ->live()
+                         ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                             $pricePerPax = str_replace('.', '', $get('price_per_pax'));
+                             $pax = $state;
+                             $totalPrice = $pricePerPax * $pax;
+
+                             $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                         }),
+                TextInput::make('total_price')
+                         ->prefix('Rp')
+                         ->disabled(),
+            ]),
         ];
     }
 }

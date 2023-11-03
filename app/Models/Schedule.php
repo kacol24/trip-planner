@@ -44,4 +44,17 @@ class Schedule extends Model
     {
         return $this->price_per_pax * $this->pax;
     }
+
+    public function getCostCalculatorAttribute()
+    {
+        if (! $this->price_per_pax || ! $this->pax) {
+            return null;
+        }
+
+        $pricePerPax = number_format($this->price_per_pax, 0, ',', '.');
+        $pax = $this->pax;
+        $totalCost = number_format($this->total_cost, 0, ',', '.');
+
+        return 'Rp' . $pricePerPax . ' x ' . $pax . ' = Rp' . $totalCost;
+    }
 }

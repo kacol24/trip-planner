@@ -17,7 +17,7 @@ return new class extends Migration{
             $table->string('time_of_day')->index();
             $table->tinyInteger('pax')->nullable();
             $table->longText('notes')->nullable();
-            $table->unsignedBigInteger('sort')->default(0)->index();
+            $table->unsignedBigInteger('sort')->default(999)->index();
             $table->timestamps();
         });
     }
