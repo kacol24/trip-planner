@@ -6,13 +6,10 @@ use App\Filament\Resources\ItineraryResource\Pages;
 use App\Filament\Resources\ItineraryResource\RelationManagers;
 use App\Filament\Resources\ItineraryResource\Widgets\BudgetTotalStats;
 use App\Models\Accomodation;
-use App\Models\Destination;
 use App\Models\Itinerary;
-use App\Models\Schedule;
 use App\Models\Transportation;
 use Filament\Forms;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -102,136 +99,6 @@ class ItineraryResource extends Resource
                                  ->numeric()
                                  ->suffix('Km'),
                     ]),
-                Repeater::make('schedules')
-                        ->collapsible()
-                        ->relationship()
-                        ->orderColumn()
-                        ->reorderableWithButtons()
-                        ->reorderableWithDragAndDrop(false)
-                        ->defaultItems(0)
-                        ->columnSpan(2)
-                        ->collapsed(true)
-                        ->itemLabel(function ($state) {
-                            $destination = Destination::find($state['destination_id']);
-
-                            if (! $destination) {
-                                return null;
-                            }
-                            $title = optional($destination)->repeater_title;
-                            $tod = $state['time_of_day'];
-                            $pricePerPax = optional($destination)->price_per_pax;
-                            $pax = $state['pax'];
-                            $notes = $state['notes'];
-                            $price = number_format($pricePerPax, 0, ',', '.').' x '.$pax;
-                            $total = number_format($pricePerPax * $pax, 0, ',', '.');
-
-                            if ($pricePerPax > 0 && $pax > 0) {
-                                $title = $title.' (Rp'.$price.' = Rp'.$total.')';
-                            }
-
-                            //if (isset(Schedule::TIME_OF_DAY[$tod])) {
-                            //    $title = Schedule::TIME_OF_DAY[$tod].' - '.$title;
-                            //}
-
-                            if ($notes) {
-                                $title = $title.' | '.$notes;
-                            }
-
-                            return $title;
-                        })
-                        ->schema([
-                            Select::make('destination_id')
-                                  ->label('Destination')
-                                  ->columnSpan([
-                                      'default' => 3,
-                                      'sm'      => 1,
-                                  ])
-                                  ->searchable()
-                                  ->preload()
-                                  ->live()
-                                  ->relationship('destination')
-                                  ->getOptionLabelFromRecordUsing(function (Destination $record) {
-                                      return $record->dropdown_name;
-                                  })
-                                  ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                      $entity = Destination::find($state);
-                                      $pricePerPax = optional($entity)->price_per_pax;
-                                      $pax = $get('pax');
-                                      $totalPrice = optional($entity)->price_per_pax * $pax;
-
-                                      $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
-                                      $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                  })
-                                  ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                      $entity = Destination::find($state);
-                                      $pricePerPax = $entity->price_per_pax;
-                                      $pax = $get('pax');
-                                      $totalPrice = $entity->price_per_pax * $pax;
-
-                                      $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
-                                      $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                  })
-                                  ->createOptionForm([
-                                      Forms\Components\TextInput::make('name')
-                                                                ->required(),
-                                      Forms\Components\Select::make('area_id')
-                                                             ->relationship('area', 'name')
-                                                             ->searchable()
-                                                             ->preload()
-                                                             ->required(),
-                                      Forms\Components\Select::make('destination_type_id')
-                                                             ->relationship('destinationType', 'name')
-                                                             ->searchable()
-                                                             ->preload()
-                                                             ->required(),
-                                      Forms\Components\TextInput::make('price_per_pax')
-                                                                ->prefix('Rp')
-                                                                ->numeric(),
-                                      Forms\Components\RichEditor::make('notes')
-                                                                 ->columnSpan(2),
-                                  ]),
-                            Select::make('time_of_day')
-                                  ->columnSpan([
-                                      'default' => 3,
-                                      'sm'      => 1,
-                                  ])
-                                  ->options(Schedule::TIME_OF_DAY),
-                            TextInput::make('notes')
-                                     ->columnSpan(3),
-                            Grid::make([
-                                'default' => 2,
-                                'sm'      => 3,
-                            ])
-                                ->columnSpan(3)
-                                ->schema([
-                                    TextInput::make('price_per_pax')
-                                             ->columnSpan(1)
-                                             ->prefix('Rp')
-                                             ->disabled(),
-                                    TextInput::make('pax')
-                                             ->columnSpan(1)
-                                             ->numeric()
-                                             ->live()
-                                             ->afterStateUpdated(function (
-                                                 Forms\Set $set,
-                                                 Forms\Get $get,
-                                                 ?string $state
-                                             ) {
-                                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                                                 $pax = $state;
-                                                 $totalPrice = $pricePerPax * $pax;
-
-                                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                                             }),
-                                    TextInput::make('total_price')
-                                             ->columnSpan([
-                                                 'default' => 2,
-                                                 'sm'      => 1,
-                                             ])
-                                             ->prefix('Rp')
-                                             ->disabled(),
-                                ]),
-                        ]),
             ]);
     }
 
