@@ -114,7 +114,6 @@ class ItineraryResource extends Resource
                 Tables\Columns\TextColumn::make('theme'),
                 Tables\Columns\TextColumn::make('notes')
                                          ->toggleable(isToggledHiddenByDefault: true)
-                                         ->html()
                                          ->wrap(),
                 Tables\Columns\TextColumn::make('accomodation_column')
                                          ->toggleable(isToggledHiddenByDefault: true)
