@@ -112,6 +112,10 @@ class ItineraryResource extends Resource
                                              return strtoupper(Carbon::parse($state)->format('d D'));
                                          }),
                 Tables\Columns\TextColumn::make('theme'),
+                Tables\Columns\TextColumn::make('notes')
+                                         ->toggleable(isToggledHiddenByDefault: true)
+                                         ->html()
+                                         ->wrap(),
                 Tables\Columns\TextColumn::make('accomodation_column')
                                          ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Accomodation')
