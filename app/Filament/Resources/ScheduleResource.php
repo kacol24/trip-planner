@@ -170,7 +170,7 @@ class ScheduleResource extends Resource
                          ->prefix('Rp'),
                 TextInput::make('pax')
                          ->disabled(function (Forms\Get $get) {
-                             return ! $get('price_per_pax');
+                             return ! $get('destination_id');
                          })
                          ->numeric()
                          ->live()
