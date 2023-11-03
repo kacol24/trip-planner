@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ItineraryResource\Pages;
 use App\Filament\Resources\ItineraryResource\RelationManagers;
+use App\Filament\Resources\ItineraryResource\Widgets\BudgetTotalStats;
 use App\Models\Accomodation;
 use App\Models\Destination;
 use App\Models\Itinerary;
@@ -277,6 +278,13 @@ class ItineraryResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BudgetTotalStats::class,
+        ];
     }
 
     public static function getRelations(): array
