@@ -64,18 +64,14 @@ class Itinerary extends Model
 
     public function getWisataCostAttribute()
     {
-        $wisata = $this->schedules()->whereHas('destination', function ($query) {
-            $query->where('destination_type_id', DestinationType::TYPE_WISATA);
-        })->get();
+        $wisata = $this->schedules->where('destination.destination_type_id', DestinationType::TYPE_WISATA);
 
         return $wisata->sum('total_cost');
     }
 
     public function getKulinerCostAttribute()
     {
-        $wisata = $this->schedules()->whereHas('destination', function ($query) {
-            $query->where('destination_type_id', DestinationType::TYPE_KULINER);
-        })->get();
+        $wisata = $this->schedules->where('destination.destination_type_id', DestinationType::TYPE_KULINER);
 
         return $wisata->sum('total_cost');
     }
