@@ -65,11 +65,16 @@
             <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <td style="width: 25%;">
                     TRANSPORTASI
+                    @if($itinerary->distance)
+                        <small class="text-muted">
+                            ({{ $itinerary->distance }}km)
+                        </small>
+                    @endif
                 </td>
                 <td style="width: 50%;">
-                    @if($itinerary->transporation)
+                    @if($itinerary->transportation)
                         <div class="fw-bold">
-                            {{ optional($itinerary->transporation)->name }}
+                            {{ optional($itinerary->transportation)->name }}
                         </div>
                     @else
                         TBD
