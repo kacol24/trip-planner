@@ -8,6 +8,7 @@ use App\Models\Destination;
 use App\Models\Itinerary;
 use App\Models\Schedule;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,7 +31,11 @@ class ScheduleResource extends Resource
                     Forms\Components\Select::make('itinerary_id')
                                            ->label('Itinerary')
                                            ->options(Itinerary::get()->pluck('dropdown_name', 'id'))
-                                           ->required(),
+                                           ->required()
+                                           ->columnSpan([
+                                               'default' => 2,
+                                               'sm'      => 1,
+                                           ]),
                 ], self::getSchema())
             );
     }
@@ -115,9 +120,7 @@ class ScheduleResource extends Resource
                                    ->searchable()
                                    ->preload()
                                    ->live()
-                                   ->columnSpan(
-                                       $related ? 2 : null
-                                   )
+                                   ->columnSpan(2)
                                    ->relationship('destination')
                                    ->getOptionLabelFromRecordUsing(function (Destination $record) {
                                        return $record->dropdown_name;
@@ -181,29 +184,39 @@ class ScheduleResource extends Resource
                                    ->required(),
             Forms\Components\Select::make('time_of_day')
                                    ->options(Schedule::TIME_OF_DAY)
-                                   ->required(),
-            TextInput::make('notes'),
-            Forms\Components\Grid::make(3)->schema([
-                TextInput::make('price_per_pax')
-                         ->disabled()
-                         ->prefix('Rp'),
-                TextInput::make('pax')
-                         ->disabled(function (Forms\Get $get) {
-                             return ! $get('destination_id');
-                         })
-                         ->numeric()
-                         ->live()
-                         ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                             $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                             $pax = $state;
-                             $totalPrice = $pricePerPax * $pax;
+                                   ->required()
+                                   ->columnSpan([
+                                       'default' => 2,
+                                       'sm'      => 1,
+                                   ]),
+            TextInput::make('notes')
+                     ->columnSpan([
+                         'default' => 2,
+                         'sm'      => 1,
+                     ]),
+            Grid::make(3)
+                ->columnSpan(2)
+                ->schema([
+                    TextInput::make('price_per_pax')
+                             ->disabled()
+                             ->prefix('Rp'),
+                    TextInput::make('pax')
+                             ->disabled(function (Forms\Get $get) {
+                                 return ! $get('destination_id');
+                             })
+                             ->numeric()
+                             ->live()
+                             ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
+                                 $pax = $state;
+                                 $totalPrice = $pricePerPax * $pax;
 
-                             $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                         }),
-                TextInput::make('total_price')
-                         ->prefix('Rp')
-                         ->disabled(),
-            ]),
+                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                             }),
+                    TextInput::make('total_price')
+                             ->prefix('Rp')
+                             ->disabled(),
+                ]),
         ];
     }
 }

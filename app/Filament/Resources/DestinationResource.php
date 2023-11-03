@@ -27,18 +27,22 @@ class DestinationResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                                          ->columnSpan(2)
                                           ->required(),
                 Forms\Components\Select::make('area_id')
+                                       ->columnSpan(1)
                                        ->relationship('area', 'name')
                                        ->searchable()
                                        ->preload()
                                        ->required(),
                 Forms\Components\Select::make('destination_type_id')
+                                       ->columnSpan(1)
                                        ->relationship('destinationType', 'name')
                                        ->searchable()
                                        ->preload()
                                        ->required(),
                 Forms\Components\TextInput::make('price_per_pax')
+                                          ->columnSpan(2)
                                           ->prefix('Rp')
                                           ->numeric(),
                 Forms\Components\RichEditor::make('notes')

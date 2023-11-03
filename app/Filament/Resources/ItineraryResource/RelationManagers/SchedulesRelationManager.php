@@ -34,7 +34,8 @@ class SchedulesRelationManager extends RelationManager
                 Tables\Columns\SelectColumn::make('time_of_day')
                                            ->options(Schedule::TIME_OF_DAY)
                                            ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextInputColumn::make('notes'),
+                Tables\Columns\TextColumn::make('notes')
+                                         ->html(),
                 Tables\Columns\TextInputColumn::make('pax')
                                               ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('cost_calculator')
@@ -49,8 +50,10 @@ class SchedulesRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
+                                         ->iconButton()
                                          ->slideOver(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                                           ->iconButton(),
             ])
             ->bulkActions([
                 //
