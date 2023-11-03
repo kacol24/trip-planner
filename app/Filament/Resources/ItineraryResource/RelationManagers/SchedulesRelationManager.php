@@ -49,11 +49,11 @@ class SchedulesRelationManager extends RelationManager
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                                         ->iconButton()
-                                         ->slideOver(),
-                Tables\Actions\DeleteAction::make()
-                                           ->iconButton(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make()
+                                             ->slideOver(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 //

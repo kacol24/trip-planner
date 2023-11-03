@@ -136,9 +136,12 @@ class ItineraryResource extends Resource
             ->filters([
                 //
             ])
-            ->headerActions([])
+            ->headerActions([
+                //
+            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                                         ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

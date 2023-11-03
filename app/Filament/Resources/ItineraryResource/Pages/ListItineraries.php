@@ -16,6 +16,12 @@ class ListItineraries extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('calendar')
+                          ->url('/calendar')
+                          ->openUrlInNewTab(),
+            Actions\Action::make('Print')
+                          ->url('/')
+                          ->openUrlInNewTab(),
             Actions\CreateAction::make(),
         ];
     }
