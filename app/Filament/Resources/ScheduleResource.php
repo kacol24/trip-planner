@@ -159,6 +159,25 @@ class ScheduleResource extends Resource
                                        Forms\Components\RichEditor::make('notes')
                                                                   ->columnSpan(2),
                                    ])
+                                   ->editOptionForm([
+                                       Forms\Components\TextInput::make('name')
+                                                                 ->required(),
+                                       Forms\Components\Select::make('area_id')
+                                                              ->relationship('area', 'name')
+                                                              ->searchable()
+                                                              ->preload()
+                                                              ->required(),
+                                       Forms\Components\Select::make('destination_type_id')
+                                                              ->relationship('destinationType', 'name')
+                                                              ->searchable()
+                                                              ->preload()
+                                                              ->required(),
+                                       Forms\Components\TextInput::make('price_per_pax')
+                                                                 ->prefix('Rp')
+                                                                 ->numeric(),
+                                       Forms\Components\RichEditor::make('notes')
+                                                                  ->columnSpan(2),
+                                   ])
                                    ->required(),
             Forms\Components\Select::make('time_of_day')
                                    ->options(Schedule::TIME_OF_DAY)
