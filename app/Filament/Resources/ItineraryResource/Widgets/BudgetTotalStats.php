@@ -18,7 +18,7 @@ class BudgetTotalStats extends BaseWidget
         $formattedTransportationRate = number_format($transportationRate, 0, ',', '.');
         $fuelCost = $itineraries->sum('fuel_cost');
         $formattedFuelCost = number_format($fuelCost, 0, ',', '.');
-        $transportationCost = $itineraries->sum('transportation_rate');
+        $transportationCost = $itineraries->sum('transportation_cost');
         $formattedTransportationCost = number_format($transportationCost, 0, ',', '.');
         $wisataCost = $itineraries->sum('wisata_cost');
         $formattedWisataCost = number_format($wisataCost, 0, ',', '.');
