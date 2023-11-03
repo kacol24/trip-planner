@@ -14,7 +14,11 @@ class BudgetTotalStats extends BaseWidget
 
         $accomodationCost = $itineraries->sum('accomodation_cost');
         $formattedAccomodationCost = number_format($accomodationCost, 0, ',', '.');
-        $transportationCost = $itineraries->sum('transportation_cost');
+        $transportationRate = $itineraries->sum('transportation_rate');
+        $formattedTransportationRate = number_format($transportationRate, 0, ',', '.');
+        $fuelCost = $itineraries->sum('fuel_cost');
+        $formattedFuelCost = number_format($fuelCost, 0, ',', '.');
+        $transportationCost = $itineraries->sum('transportation_rate');
         $formattedTransportationCost = number_format($transportationCost, 0, ',', '.');
         $wisataCost = $itineraries->sum('wisata_cost');
         $formattedWisataCost = number_format($wisataCost, 0, ',', '.');
@@ -30,9 +34,10 @@ class BudgetTotalStats extends BaseWidget
                 'Rp'.$this->thousandsCurrencyFormat($accomodationCost)
             )->description('Rp'.$formattedAccomodationCost),
             Stat::make(
-                'Transport',
+                'Transport + Fuel',
                 'Rp'.$this->thousandsCurrencyFormat($transportationCost)
-            )->description('Rp'.$formattedTransportationCost),
+            )
+                ->description('Rp'.$formattedTransportationRate.' + Rp'.$formattedFuelCost.' = Rp'.$formattedTransportationCost),
             Stat::make(
                 'Wisata + Kuliner',
                 'Rp'.$this->thousandsCurrencyFormat($wisataCost + $kulinerCost)
