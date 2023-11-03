@@ -3,12 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Itinerary</title>
+    <title>Bali Trip Itinerary 23 DES 2023 - 02 JAN 2024</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         td p {
             margin-bottom: 0;
+        }
+
+        table, tr, td, th {
+            page-break-inside: avoid;
         }
     </style>
 </head>
@@ -21,7 +25,8 @@
                     {{ strtoupper($itinerary->date->format('d D')) }}
                 </th>
             </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
+            >
                 <th></th>
                 <th class="text-center">
                     {{ $itinerary->theme }}
@@ -31,7 +36,8 @@
                 </th>
             </tr>
             @if($itinerary->notes)
-                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
+                >
                     <td></td>
                     <td>
                         <em class="font-sm">
@@ -41,7 +47,8 @@
                     <td></td>
                 </tr>
             @endif
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
+            >
                 <td style="width: 25%;">
                     AKOMODASI
                 </td>
@@ -62,7 +69,8 @@
                     @endif
                 </td>
             </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
+            >
                 <td style="width: 25%;">
                     TRANSPORTASI
                 </td>
@@ -89,8 +97,8 @@
                 </td>
             </tr>
             @foreach($itinerary->schedules as $schedule)
-                <tr class="{{ $loop->parent->even ? 'table-secondary border-dark' : '' }}"
-                    style="page-break-inside: avoid !important">
+                <tr class="{{ $loop->parent->even ? 'table-secondary border-dark' : '' }} "
+                >
                     <td style="width: 25%;">
                         {!! $schedule->notes !!}
                     </td>
