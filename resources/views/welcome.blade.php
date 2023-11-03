@@ -96,7 +96,7 @@
                         <div @class(['fw-bold' => $schedule->destination->destination_type_id != App\Models\DestinationType::TYPE_OTW])>
                             {{ $schedule->destination->name }}
                         </div>
-                        <em class="font-sm" style="word-break: break-all">
+                        <em class="ms-3 d-inline-block text-muted" style="word-break: break-all; font-size: 80%;">
                             {!! $schedule->destination->notes !!}
                         </em>
                     </td>
