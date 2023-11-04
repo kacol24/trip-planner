@@ -65,6 +65,7 @@ class DestinationResource extends Resource
                 Tables\Columns\TextColumn::make('price_per_pax')
                                          ->label('Price/pax')
                                          ->prefix('Rp')
+                                         ->toggleable()
                                          ->numeric(),
             ])
             ->filters([
@@ -82,7 +83,8 @@ class DestinationResource extends Resource
                                            ->multiple(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                                         ->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
