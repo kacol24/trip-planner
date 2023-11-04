@@ -74,10 +74,10 @@
                     @endif
                 </td>
                 <td class="text-end" style="width: 25%;">
-                    @if($itinerary->transporation)
-                        Rp{{ number_format($itinerary->transporation_rate) }}
+                    @if($itinerary->transportation)
+                        Rp{{ number_format($itinerary->transportation_rate) }}
                         + Rp{{ number_format($itinerary->fuel_cost) }} ({{ $itinerary->distance }}km)
-                        <strong>Rp{{ number_format($itinerary->transporation_cost) }}</strong>
+                        <strong>Rp{{ number_format($itinerary->transportation_cost) }}</strong>
                     @endif
                 </td>
             </tr>
