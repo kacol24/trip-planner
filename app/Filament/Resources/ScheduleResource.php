@@ -181,9 +181,9 @@ class ScheduleResource extends Resource
                              ->prefix('Rp')
                              ->disabled(),
                 ]),
-            Forms\Components\RichEditor::make('destination.notes')
-                                       ->disabled()
-                                       ->columnSpan(2),
+            Forms\Components\Textarea::make('destination.notes')
+                                     ->columnSpan(2)
+                                     ->disabled(),
         ];
     }
 }
