@@ -59,8 +59,8 @@ class DestinationResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                                          ->searchable()
-                                         ->description(function (Schedule $record) {
-                                             return $record->destination->destinationType->name;
+                                         ->description(function (Destination $record) {
+                                             return $record->destinationType->name;
                                          }),
                 //Tables\Columns\TextColumn::make('area.name'),
                 //Tables\Columns\SelectColumn::make('destination_type_id')
