@@ -104,9 +104,11 @@
                         <div @class(['fw-bold' => $schedule->destination->destination_type_id != App\Models\DestinationType::TYPE_OTW])>
                             {{ $schedule->destination->name }}
                         </div>
-                        <em class="ms-3 d-inline-block text-muted" style="word-break: break-all;">
-                            {!! $schedule->destination->notes !!}
-                        </em>
+                        @if($schedule->destination->notes)
+                            <em class="ms-3 d-inline-block text-muted" style="word-break: break-all;">
+                                {!! $schedule->destination->notes !!}
+                            </em>
+                        @endif
                     </td>
                     <td class="text-end" style="width: 25%;">
                         @if($schedule->price_per_pax)
