@@ -59,7 +59,8 @@ class AccomodationResource extends Resource
                 Tables\Columns\TextColumn::make('rate')
                                          ->label('Rate/room/night')
                                          ->numeric()
-                                         ->prefix('Rp'),
+                                         ->prefix('Rp')
+                                         ->toggleable(),
             ])
             ->filters([
                 //
