@@ -61,9 +61,9 @@
                 </td>
                 <td style="width: 50%;">
                     @if($itinerary->transportation)
-                        <div class="fw-bold">
+                        <strong>
                             {{ optional($itinerary->transportation)->name }}
-                        </div>
+                        </strong>
                     @else
                         TBD
                     @endif
