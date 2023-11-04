@@ -6,6 +6,7 @@ use App\Filament\Resources\DestinationResource\Pages;
 use App\Filament\Resources\DestinationResource\RelationManagers;
 use App\Models\Destination;
 use App\Models\DestinationType;
+use App\Models\Schedule;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -57,15 +58,17 @@ class DestinationResource extends Resource
             ->persistSearchInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                                         ->searchable(),
+                                         ->searchable()
+                                         ->description(function (Schedule $record) {
+                                             return $record->destination->destinationType->name;
+                                         }),
                 //Tables\Columns\TextColumn::make('area.name'),
-                Tables\Columns\SelectColumn::make('destination_type_id')
-                                           ->label('Type')
-                                           ->options(DestinationType::get()->pluck('name', 'id')),
+                //Tables\Columns\SelectColumn::make('destination_type_id')
+                //                           ->label('Type')
+                //                           ->options(DestinationType::get()->pluck('name', 'id')),
                 Tables\Columns\TextColumn::make('price_per_pax')
                                          ->label('Price/pax')
                                          ->prefix('Rp')
-                                         ->toggleable()
                                          ->numeric(),
             ])
             ->filters([
