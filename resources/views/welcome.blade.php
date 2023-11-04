@@ -49,9 +49,9 @@
                 </td>
                 <td class="text-end" style="width: 25%;">
                     @if($itinerary->accomodation)
-                        @ Rp{{ number_format($itinerary->room_rate) }}
+                        @ Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
                         x {{ $itinerary->room_count }}
-                        = <strong>Rp{{ number_format($itinerary->accomodation_cost) }}</strong>
+                        = <strong>Rp{{ number_format($itinerary->accomodation_cost, 0, ',', '.') }}</strong>
                     @endif
                 </td>
             </tr>
@@ -75,9 +75,9 @@
                 </td>
                 <td class="text-end" style="width: 25%;">
                     @if($itinerary->transportation)
-                        Rp{{ number_format($itinerary->transportation_rate) }}
-                        + Rp{{ number_format($itinerary->fuel_cost) }} ({{ $itinerary->distance }}km)
-                        <strong>Rp{{ number_format($itinerary->transportation_cost) }}</strong>
+                        Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
+                        + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}km)
+                        <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
                     @endif
                 </td>
             </tr>
