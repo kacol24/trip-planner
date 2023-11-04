@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ScheduleResource\Pages;
 use App\Filament\Resources\ScheduleResource\RelationManagers;
 use App\Models\Destination;
+use App\Models\DestinationType;
 use App\Models\Itinerary;
 use App\Models\Schedule;
 use Filament\Forms;
@@ -47,6 +48,10 @@ class ScheduleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('destination.name')
                                          ->description(function (Schedule $record) {
+                                             if ($record->destination->destination_type_id == DestinationType::TYPE_OTW) {
+                                                 return null;
+                                             }
+                                             
                                              return $record->destination->destinationType->name;
                                          }),
                 Tables\Columns\TextColumn::make('notes')
