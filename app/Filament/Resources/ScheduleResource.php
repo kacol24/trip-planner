@@ -63,9 +63,6 @@ class ScheduleResource extends Resource
                                          ->label('Total')
                                          ->prefix('Rp')
                                          ->numeric(0, ',', '.'),
-                Forms\Components\RichEditor::make('destination.notes')
-                                           ->disabled()
-                                           ->columnSpan(2),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('itinerary_id')
@@ -184,6 +181,9 @@ class ScheduleResource extends Resource
                              ->prefix('Rp')
                              ->disabled(),
                 ]),
+            Forms\Components\RichEditor::make('destination.notes')
+                                       ->disabled()
+                                       ->columnSpan(2),
         ];
     }
 }
