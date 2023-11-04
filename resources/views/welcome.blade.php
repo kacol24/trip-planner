@@ -25,8 +25,7 @@
                     {{ strtoupper($itinerary->date->format('d D')) }}
                 </th>
             </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
-            >
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <th></th>
                 <th class="text-center">
                     {{ $itinerary->theme }}
@@ -35,20 +34,7 @@
                     TOTAL: Rp{{ number_format($itinerary->total_for_the_day, 0, ',', '.') }}
                 </th>
             </tr>
-            @if($itinerary->notes)
-                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
-                >
-                    <td></td>
-                    <td>
-                        <em class="font-sm">
-                            {!! $itinerary->notes !!}
-                        </em>
-                    </td>
-                    <td></td>
-                </tr>
-            @endif
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
-            >
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <td style="width: 25%;">
                     AKOMODASI
                 </td>
@@ -69,8 +55,7 @@
                     @endif
                 </td>
             </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}"
-            >
+            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <td style="width: 25%;">
                     TRANSPORTASI
                 </td>
@@ -96,9 +81,19 @@
                     @endif
                 </td>
             </tr>
+            @if($itinerary->notes)
+                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+                    <td></td>
+                    <td>
+                        <em class="font-sm">
+                            {!! $itinerary->notes !!}
+                        </em>
+                    </td>
+                    <td></td>
+                </tr>
+            @endif
             @foreach($itinerary->schedules as $schedule)
-                <tr class="{{ $loop->parent->even ? 'table-secondary border-dark' : '' }} "
-                >
+                <tr class="{{ $loop->parent->even ? 'table-secondary border-dark' : '' }}">
                     <td style="width: 25%;">
                         {!! $schedule->notes !!}
                     </td>
