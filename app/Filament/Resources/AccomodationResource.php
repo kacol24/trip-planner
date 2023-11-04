@@ -26,8 +26,16 @@ class AccomodationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name'),
+                Forms\Components\TextInput::make('name')
+                                          ->columnSpan([
+                                              'default' => 2,
+                                              'sm'      => 1,
+                                          ]),
                 Forms\Components\Select::make('area_id')
+                                       ->columnSpan([
+                                           'default' => 2,
+                                           'sm'      => 1,
+                                       ])
                                        ->relationship('area', 'name')
                                        ->searchable()
                                        ->preload(),
