@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ItineraryResource\RelationManagers;
 
 use App\Filament\Resources\ScheduleResource;
+use App\Models\DestinationType;
 use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -29,6 +30,10 @@ class SchedulesRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('destination.name')
                                          ->description(function (Schedule $record) {
+                                             if ($record->destination->destination_type_id == DestinationType::TYPE_OTW) {
+                                                 return null;
+                                             }
+
                                              return $record->destination->destinationType->name;
                                          }),
                 Tables\Columns\SelectColumn::make('time_of_day')

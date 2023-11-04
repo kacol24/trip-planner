@@ -51,7 +51,7 @@ class ScheduleResource extends Resource
                                              if ($record->destination->destination_type_id == DestinationType::TYPE_OTW) {
                                                  return null;
                                              }
-                                             
+
                                              return $record->destination->destinationType->name;
                                          }),
                 Tables\Columns\TextColumn::make('notes')
