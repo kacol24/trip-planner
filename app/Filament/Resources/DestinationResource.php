@@ -5,8 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DestinationResource\Pages;
 use App\Filament\Resources\DestinationResource\RelationManagers;
 use App\Models\Destination;
-use App\Models\DestinationType;
-use App\Models\Schedule;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,29 +24,34 @@ class DestinationResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                                          ->columnSpan(2)
-                                          ->required(),
-                Forms\Components\Select::make('area_id')
-                                       ->columnSpan(1)
-                                       ->relationship('area', 'name')
-                                       ->searchable()
-                                       ->preload()
-                                       ->required(),
-                Forms\Components\Select::make('destination_type_id')
-                                       ->columnSpan(1)
-                                       ->relationship('destinationType', 'name')
-                                       ->searchable()
-                                       ->preload()
-                                       ->required(),
-                Forms\Components\TextInput::make('price_per_pax')
-                                          ->columnSpan(2)
-                                          ->prefix('Rp')
-                                          ->numeric(),
-                Forms\Components\RichEditor::make('notes')
-                                           ->columnSpan(2),
-            ]);
+            ->schema(self::getSchema());
+    }
+
+    public static function getSchema()
+    {
+        return [
+            Forms\Components\TextInput::make('name')
+                                      ->columnSpan(2)
+                                      ->required(),
+            Forms\Components\Select::make('area_id')
+                                   ->columnSpan(1)
+                                   ->relationship('area', 'name')
+                                   ->searchable()
+                                   ->preload()
+                                   ->required(),
+            Forms\Components\Select::make('destination_type_id')
+                                   ->columnSpan(1)
+                                   ->relationship('destinationType', 'name')
+                                   ->searchable()
+                                   ->preload()
+                                   ->required(),
+            Forms\Components\TextInput::make('price_per_pax')
+                                      ->columnSpan(2)
+                                      ->prefix('Rp')
+                                      ->numeric(),
+            Forms\Components\RichEditor::make('notes')
+                                       ->columnSpan(2),
+        ];
     }
 
     public static function table(Table $table): Table

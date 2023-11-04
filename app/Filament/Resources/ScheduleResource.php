@@ -136,51 +136,15 @@ class ScheduleResource extends Resource
                                    })
                                    ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
                                        $entity = Destination::find($state);
-                                       $pricePerPax = $entity->price_per_pax;
+                                       $pricePerPax = optional($entity)->price_per_pax;
                                        $pax = $get('pax');
-                                       $totalPrice = $entity->price_per_pax * $pax;
+                                       $totalPrice = optional($entity)->price_per_pax * $pax;
 
                                        $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
                                        $set('total_price', number_format($totalPrice, 0, ',', '.'));
                                    })
-                                   ->createOptionForm([
-                                       Forms\Components\TextInput::make('name')
-                                                                 ->required(),
-                                       Forms\Components\Select::make('area_id')
-                                                              ->relationship('area', 'name')
-                                                              ->searchable()
-                                                              ->preload()
-                                                              ->required(),
-                                       Forms\Components\Select::make('destination_type_id')
-                                                              ->relationship('destinationType', 'name')
-                                                              ->searchable()
-                                                              ->preload()
-                                                              ->required(),
-                                       Forms\Components\TextInput::make('price_per_pax')
-                                                                 ->prefix('Rp')
-                                                                 ->numeric(),
-                                       Forms\Components\RichEditor::make('notes')
-                                                                  ->columnSpan(2),
-                                   ])
-                                   ->editOptionForm([
-                                       Forms\Components\TextInput::make('name')
-                                                                 ->required(),
-                                       Forms\Components\Select::make('area_id')
-                                                              ->relationship('area', 'name')
-                                                              ->searchable()
-                                                              ->preload()
-                                                              ->required(),
-                                       Forms\Components\Select::make('destination_type_id')
-                                                              ->relationship('destinationType', 'name')
-                                                              ->searchable()
-                                                              ->preload()
-                                                              ->required(),
-                                       Forms\Components\TextInput::make('price_per_pax')
-                                                                 ->prefix('Rp')
-                                                                 ->numeric(),
-                                       Forms\Components\RichEditor::make('notes')
-                                                                  ->columnSpan(2),
-                                   ])
+                                   ->createOptionForm(DestinationResource::getSchema())
+                                   ->editOptionForm(DestinationResource::getSchema())
                                    ->required(),
             Forms\Components\Select::make('time_of_day')
                                    ->options(Schedule::TIME_OF_DAY)
