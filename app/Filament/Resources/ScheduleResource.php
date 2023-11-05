@@ -166,30 +166,37 @@ class ScheduleResource extends Resource
             Grid::make(3)
                 ->columnSpan(2)
                 ->schema([
-                    TextInput::make('price_per_pax')
-                             ->columnSpan([
-                                 'default' => 2,
-                                 'sm'      => 1,
-                             ])
-                             ->disabled()
-                             ->prefix('Rp'),
-                    TextInput::make('pax')
-                             ->columnSpan([
-                                 'default' => 1,
-                                 'sm'      => 1,
-                             ])
-                             ->disabled(function (Forms\Get $get) {
-                                 return ! $get('destination_id');
-                             })
-                             ->numeric()
-                             ->live()
-                             ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
-                                 $pricePerPax = str_replace('.', '', $get('price_per_pax'));
-                                 $pax = $state;
-                                 $totalPrice = $pricePerPax * $pax;
+                    Grid::make(3)
+                        ->columnSpan([
+                            'default' => 3,
+                            'sm'      => 2,
+                        ])
+                        ->schema([
+                            TextInput::make('price_per_pax')
+                                     ->columnSpan([
+                                         'default' => 2,
+                                         'sm'      => 1,
+                                     ])
+                                     ->disabled()
+                                     ->prefix('Rp'),
+                            TextInput::make('pax')
+                                     ->columnSpan([
+                                         'default' => 1,
+                                         'sm'      => 1,
+                                     ])
+                                     ->disabled(function (Forms\Get $get) {
+                                         return ! $get('destination_id');
+                                     })
+                                     ->numeric()
+                                     ->live()
+                                     ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                         $pricePerPax = str_replace('.', '', $get('price_per_pax'));
+                                         $pax = $state;
+                                         $totalPrice = $pricePerPax * $pax;
 
-                                 $set('total_price', number_format($totalPrice, 0, ',', '.'));
-                             }),
+                                         $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                     }),
+                        ]),
                     TextInput::make('total_price')
                              ->columnSpan([
                                  'default' => 3,
