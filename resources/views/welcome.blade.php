@@ -23,10 +23,16 @@
         table, tr, td, th {
             page-break-inside: avoid;
         }
+
+        @media print {
+            .padding-print {
+                padding: 1cm;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container-fluid pt-3">
+<div class="container-fluid p-0 padding-print">
     <table class="table w-100 m-0 table-bordered border-dark">
         @foreach($itineraries as $itinerary)
             <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
