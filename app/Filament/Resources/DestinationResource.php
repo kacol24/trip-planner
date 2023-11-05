@@ -133,7 +133,7 @@ class DestinationResource extends Resource
         return [
             'index'  => Pages\ListDestinations::route('/'),
             'create' => Pages\CreateDestination::route('/create'),
-            'edit'   => Pages\EditDestination::route('/{record}/edit'),
+            //'edit'   => Pages\EditDestination::route('/{record}/edit'),
         ];
     }
 }
