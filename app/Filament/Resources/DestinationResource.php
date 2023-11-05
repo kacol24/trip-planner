@@ -34,11 +34,19 @@ class DestinationResource extends Resource
                                       ->columnSpan(2)
                                       ->required(),
             Forms\Components\Select::make('area_id')
+                                   ->columnSpan([
+                                       'default' => 2,
+                                       'sm'      => 1,
+                                   ])
                                    ->relationship('area', 'name')
                                    ->searchable()
                                    ->preload()
                                    ->required(),
             Forms\Components\Select::make('destination_type_id')
+                                   ->columnSpan([
+                                       'default' => 2,
+                                       'sm'      => 1,
+                                   ])
                                    ->relationship('destinationType', 'name')
                                    ->searchable()
                                    ->preload()
