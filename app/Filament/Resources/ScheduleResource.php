@@ -47,6 +47,7 @@ class ScheduleResource extends Resource
     {
         return $table
             ->paginated(false)
+            ->defaultPaginationPageOption('all')
             ->columns([
                 Tables\Columns\TextColumn::make('destination.name')
                                          ->description(function (Schedule $record) {
