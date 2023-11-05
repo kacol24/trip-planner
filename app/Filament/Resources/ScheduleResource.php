@@ -174,6 +174,7 @@ class ScheduleResource extends Resource
                              ->disabled()
                              ->prefix('Rp'),
                     TextInput::make('pax')
+                             ->columnSpan(1)
                              ->disabled(function (Forms\Get $get) {
                                  return ! $get('destination_id');
                              })
