@@ -207,9 +207,10 @@ class ScheduleResource extends Resource
                     TextInput::make('total_price')
                              ->prefix('Rp')
                              ->disabled(),
-                    Forms\Components\RichEditor::make('destination_notes')
-                                               ->disabled(),
                 ]),
+            Forms\Components\RichEditor::make('destination_notes')
+                                       ->disabled()
+                                       ->columnSpan(2),
         ];
     }
 }
