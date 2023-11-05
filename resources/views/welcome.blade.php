@@ -77,7 +77,7 @@
                     @if($itinerary->transportation)
                         Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
                         + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}km)
-                        <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
+                        = <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
                     @endif
                 </td>
             </tr>
