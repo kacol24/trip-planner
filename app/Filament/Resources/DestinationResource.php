@@ -33,28 +33,38 @@ class DestinationResource extends Resource
             Forms\Components\TextInput::make('name')
                                       ->columnSpan(2)
                                       ->required(),
-            Forms\Components\Select::make('area_id')
-                                   ->columnSpan([
-                                       'default' => 2,
-                                       'sm'      => 1,
-                                   ])
-                                   ->relationship('area', 'name')
-                                   ->searchable()
-                                   ->preload()
-                                   ->required(),
-            Forms\Components\Select::make('destination_type_id')
-                                   ->columnSpan([
-                                       'default' => 2,
-                                       'sm'      => 1,
-                                   ])
-                                   ->relationship('destinationType', 'name')
-                                   ->searchable()
-                                   ->preload()
-                                   ->required(),
-            Forms\Components\TextInput::make('price_per_pax')
-                                      ->columnSpan(2)
-                                      ->prefix('Rp')
-                                      ->numeric(),
+            Forms\Components\Grid::make([
+                'default' => 2,
+                'sm'      => 3,
+            ])
+                                 ->columnSpan(2)
+                                 ->schema([
+                                     Forms\Components\Select::make('area_id')
+                                                            ->columnSpan([
+                                                                'default' => 2,
+                                                                'sm'      => 1,
+                                                            ])
+                                                            ->relationship('area', 'name')
+                                                            ->searchable()
+                                                            ->preload()
+                                                            ->required(),
+                                     Forms\Components\Select::make('destination_type_id')
+                                                            ->columnSpan([
+                                                                'default' => 2,
+                                                                'sm'      => 1,
+                                                            ])
+                                                            ->relationship('destinationType', 'name')
+                                                            ->searchable()
+                                                            ->preload()
+                                                            ->required(),
+                                     Forms\Components\TextInput::make('price_per_pax')
+                                                               ->columnSpan([
+                                                                   'default' => 2,
+                                                                   'sm'      => 1,
+                                                               ])
+                                                               ->prefix('Rp')
+                                                               ->numeric(),
+                                 ]),
             Forms\Components\RichEditor::make('notes')
                                        ->columnSpan(2),
         ];
