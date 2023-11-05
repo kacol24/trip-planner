@@ -166,7 +166,10 @@ class ScheduleResource extends Resource
             Grid::make(3)
                 ->columnSpan(2)
                 ->schema([
-                    Grid::make(3)
+                    Grid::make([
+                        'default' => 3,
+                        'sm'      => 2,
+                    ])
                         ->columnSpan([
                             'default' => 3,
                             'sm'      => 2,
@@ -198,10 +201,6 @@ class ScheduleResource extends Resource
                                      }),
                         ]),
                     TextInput::make('total_price')
-                             ->columnSpan([
-                                 'default' => 3,
-                                 'sm'      => 1,
-                             ])
                              ->prefix('Rp')
                              ->disabled(),
                 ]),
