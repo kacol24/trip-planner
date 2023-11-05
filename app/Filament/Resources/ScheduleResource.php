@@ -12,6 +12,8 @@ use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -130,7 +132,7 @@ class ScheduleResource extends Resource
                                    ->getOptionLabelFromRecordUsing(function (Destination $record) {
                                        return $record->dropdown_name;
                                    })
-                                   ->afterStateHydrated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                   ->afterStateHydrated(function (Set $set, Get $get, ?string $state) {
                                        $entity = Destination::find($state);
                                        $pricePerPax = optional($entity)->price_per_pax;
                                        $pax = $get('pax');
@@ -138,8 +140,9 @@ class ScheduleResource extends Resource
 
                                        $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
                                        $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                       $set('destination_notes', optional($entity)->notes);
                                    })
-                                   ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                   ->afterStateUpdated(function (Set $set, Get $get, ?string $state) {
                                        $entity = Destination::find($state);
                                        $pricePerPax = optional($entity)->price_per_pax;
                                        $pax = $get('pax');
@@ -147,6 +150,7 @@ class ScheduleResource extends Resource
 
                                        $set('price_per_pax', number_format($pricePerPax, 0, ',', '.'));
                                        $set('total_price', number_format($totalPrice, 0, ',', '.'));
+                                       $set('destination_notes', optional($entity)->notes);
                                    })
                                    ->createOptionForm(DestinationResource::getSchema())
                                    ->editOptionForm(DestinationResource::getSchema())
@@ -187,12 +191,12 @@ class ScheduleResource extends Resource
                                          'default' => 1,
                                          'sm'      => 1,
                                      ])
-                                     ->disabled(function (Forms\Get $get) {
+                                     ->disabled(function (Get $get) {
                                          return ! $get('destination_id');
                                      })
                                      ->numeric()
                                      ->live()
-                                     ->afterStateUpdated(function (Forms\Set $set, Forms\Get $get, ?string $state) {
+                                     ->afterStateUpdated(function (Set $set, Get $get, ?string $state) {
                                          $pricePerPax = str_replace('.', '', $get('price_per_pax'));
                                          $pax = $state;
                                          $totalPrice = $pricePerPax * $pax;
@@ -203,6 +207,8 @@ class ScheduleResource extends Resource
                     TextInput::make('total_price')
                              ->prefix('Rp')
                              ->disabled(),
+                    Forms\Components\RichEditor::make('destination_notes')
+                                               ->disabled(),
                 ]),
         ];
     }
