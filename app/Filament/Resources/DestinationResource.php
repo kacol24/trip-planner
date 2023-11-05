@@ -81,11 +81,9 @@ class DestinationResource extends Resource
                                          ->description(function (Destination $record) {
                                              return $record->destinationType->name;
                                          }),
-                //Tables\Columns\TextColumn::make('area.name'),
-                //Tables\Columns\SelectColumn::make('destination_type_id')
-                //                           ->label('Type')
-                //                           ->options(DestinationType::get()->pluck('name', 'id')),
+                Tables\Columns\TextColumn::make('area.name'),
                 Tables\Columns\TextColumn::make('price_per_pax')
+                                         ->toggleable(isToggledHiddenByDefault: true)
                                          ->label('Price/pax')
                                          ->prefix('Rp')
                                          ->numeric(),
