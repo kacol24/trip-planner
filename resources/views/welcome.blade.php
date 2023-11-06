@@ -58,8 +58,6 @@
                         <div class="fw-bold">
                             {{ optional($itinerary->accomodation)->name }}
                         </div>
-                    @else
-                        TBD
                     @endif
                 </td>
                 <td class="text-end" style="width: 25%;">
@@ -79,8 +77,6 @@
                         <strong>
                             {{ optional($itinerary->transportation)->name }}
                         </strong>
-                    @else
-                        TBD
                     @endif
                     @if($itinerary->distance)
                         <small class="text-muted">
