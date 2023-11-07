@@ -212,7 +212,8 @@
     </div>
 </div>
 <script>
-    document.getElementsByTagName('a').forEach(function (e){
+    var anchors = document.getElementsByTagName('a');
+    Array.from(anchors).forEach(function(e) {
         e.target = '_blank';
     });
 </script>
