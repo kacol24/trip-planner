@@ -19,7 +19,7 @@ class TransportationResource extends Resource
 
     protected static ?string $navigationGroup = 'Master Data';
 
-    protected static ?int $navigationSort = 30;
+    protected static ?int $navigationSort = 22;
 
     public static function form(Form $form): Form
     {

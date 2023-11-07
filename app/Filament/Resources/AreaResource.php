@@ -19,6 +19,8 @@ class AreaResource extends Resource
 
     protected static ?string $navigationGroup = 'Lookup Tables';
 
+    protected static ?int $navigationSort = 30;
+
     public static function form(Form $form): Form
     {
         return $form

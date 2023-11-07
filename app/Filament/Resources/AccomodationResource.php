@@ -19,7 +19,7 @@ class AccomodationResource extends Resource
 
     protected static ?string $navigationGroup = 'Master Data';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 21;
 
     public static function form(Form $form): Form
     {
