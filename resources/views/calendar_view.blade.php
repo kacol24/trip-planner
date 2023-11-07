@@ -19,7 +19,7 @@
 <div class="container-fluid p-0">
     <div class="table-responsive">
         <table class="table table-bordered">
-            <thead class="sticky-top">
+            <thead>
             <tr>
                 <td></td>
                 <th class="text-center" colspan="{{ $itineraries->count() }}">TANGGAL</th>
