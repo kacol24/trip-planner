@@ -59,6 +59,11 @@
                             {{ optional($itinerary->accomodation)->name }}
                         </div>
                     @endif
+                    @if($itinerary->accomodation)
+                        <small class="text-muted">
+                            {!! optional($itinerary->accomodation)->notes !!}
+                        </small>
+                    @endif
                 </td>
                 <td class="text-end" style="width: 25%;">
                     @if($itinerary->accomodation)
@@ -74,9 +79,9 @@
                 </td>
                 <td style="width: 50%;">
                     @if($itinerary->transportation)
-                        <strong>
+                        <div class="fw-bold">
                             {{ optional($itinerary->transportation)->name }}
-                        </strong>
+                        </div>
                     @endif
                     @if($itinerary->distance)
                         <small class="text-muted">
