@@ -14,6 +14,15 @@
 
     <title>Trip Calendar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        a {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow-x: hidden;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid p-0">
@@ -202,5 +211,10 @@
         </table>
     </div>
 </div>
+<script>
+    docuemnt.getElementsByTagName('a').forEach(function (e){
+        e.target = '_blank';
+    });
+</script>
 </body>
 </html>
