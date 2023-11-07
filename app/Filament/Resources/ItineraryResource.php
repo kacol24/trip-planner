@@ -151,14 +151,6 @@ class ItineraryResource extends Resource
             ]);
     }
 
-    public static function getWidgets(): array
-    {
-        return [
-            BudgetTotalStats::class,
-            ItineraryBudgetOverview::class,
-        ];
-    }
-
     public static function getRelations(): array
     {
         return [

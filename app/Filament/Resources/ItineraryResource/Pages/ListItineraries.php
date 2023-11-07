@@ -28,6 +28,8 @@ class ListItineraries extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
-        return ItineraryResource::getWidgets();
+        return [
+            ItineraryResource\Widgets\BudgetTotalStats::class,
+        ];
     }
 }
