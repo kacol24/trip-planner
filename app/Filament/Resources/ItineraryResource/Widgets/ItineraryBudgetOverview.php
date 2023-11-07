@@ -34,7 +34,7 @@ class ItineraryBudgetOverview extends BaseOverviewWidget
             Stat::make(
                 'Akomodasi',
                 'Rp'.$this->thousandsCurrencyFormat($accomodationCost)
-            )->description('Rp'.$formattedRoomRate . ' x ' . $itineraries->room_count),
+            )->description('Rp'.$formattedRoomRate.' x '.$itineraries->room_count.' = Rp'.$formattedAccomodationCost),
             Stat::make(
                 'Transport + Fuel',
                 'Rp'.$this->thousandsCurrencyFormat($transportationCost)
