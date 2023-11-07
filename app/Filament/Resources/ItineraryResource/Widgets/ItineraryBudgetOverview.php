@@ -2,29 +2,31 @@
 
 namespace App\Filament\Resources\ItineraryResource\Widgets;
 
-use App\Models\Itinerary;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Database\Eloquent\Model;
 
-class BudgetTotalStats extends BaseOverviewWidget
+class ItineraryBudgetOverview extends BaseOverviewWidget
 {
+    public ?Model $record = null;
+
     protected function getStats(): array
     {
-        $itineraries = Itinerary::get();
+        $itineraries = $this->record;
 
-        $accomodationCost = $itineraries->sum('accomodation_cost');
+        $accomodationCost = $itineraries->accomodation_cost;
         $formattedAccomodationCost = number_format($accomodationCost, 0, ',', '.');
-        $transportationRate = $itineraries->sum('transportation_rate');
+        $transportationRate = $itineraries->transportation_rate;
         $formattedTransportationRate = number_format($transportationRate, 0, ',', '.');
-        $fuelCost = $itineraries->sum('fuel_cost');
+        $fuelCost = $itineraries->fuel_cost;
         $formattedFuelCost = number_format($fuelCost, 0, ',', '.');
-        $transportationCost = $itineraries->sum('transportation_cost');
+        $transportationCost = $itineraries->transportation_cost;
         $formattedTransportationCost = number_format($transportationCost, 0, ',', '.');
-        $wisataCost = $itineraries->sum('wisata_cost');
+        $wisataCost = $itineraries->wisata_cost;
         $formattedWisataCost = number_format($wisataCost, 0, ',', '.');
-        $kulinerCost = $itineraries->sum('kuliner_cost');
+        $kulinerCost = $itineraries->kuliner_cost;
         $formattedKulinerCost = number_format($kulinerCost, 0, ',', '.');
         $formattedWisataKulinerCost = number_format($wisataCost + $kulinerCost, 0, ',', '.');
-        $totalForTheDay = $itineraries->sum('total_for_the_day');
+        $totalForTheDay = $itineraries->total_for_the_day;
         $formattedTotal = number_format($totalForTheDay, 0, ',', '.');
 
         return [

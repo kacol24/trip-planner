@@ -16,4 +16,11 @@ class EditItinerary extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ItineraryResource\Widgets\ItineraryBudgetOverview::class,
+        ];
+    }
 }

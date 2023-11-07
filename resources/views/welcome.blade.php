@@ -23,7 +23,7 @@
             overflow-x: hidden;
             display: inline-block;
         }
-        
+
         td p {
             margin-bottom: 0;
         }

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ItineraryResource\Pages;
 use App\Filament\Resources\ItineraryResource\RelationManagers;
 use App\Filament\Resources\ItineraryResource\Widgets\BudgetTotalStats;
+use App\Filament\Resources\ItineraryResource\Widgets\ItineraryBudgetOverview;
 use App\Models\Accomodation;
 use App\Models\Itinerary;
 use App\Models\Transportation;
@@ -154,6 +155,7 @@ class ItineraryResource extends Resource
     {
         return [
             BudgetTotalStats::class,
+            ItineraryBudgetOverview::class,
         ];
     }
 
