@@ -11,7 +11,7 @@ class ItineraryBudgetOverview extends BaseOverviewWidget
 
     protected function getStats(): array
     {
-        $itineraries = $this->record;
+        $itineraries = optional($this->record);
 
         $accomodationCost = $itineraries->accomodation_cost;
         $formattedAccomodationCost = number_format($accomodationCost, 0, ',', '.');
