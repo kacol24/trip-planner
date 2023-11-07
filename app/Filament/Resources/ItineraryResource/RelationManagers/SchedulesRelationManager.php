@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\HtmlString;
 
 class SchedulesRelationManager extends RelationManager
 {
@@ -41,10 +40,13 @@ class SchedulesRelationManager extends RelationManager
                                            ->options(Schedule::TIME_OF_DAY)
                                            ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('notes')
+                                         ->html(),
+                Tables\Columns\TextColumn::make('destination.notes')
+                                         ->label('Destination Notes')
+                                         ->color('gray')
                                          ->html()
-                                         ->description(function (Schedule $record) {
-                                             return new HtmlString('<small class="text-sm text-gray-500 dark:text-gray-400">'.$record->destination->notes.'</small>');
-                                         }),
+                                         ->wrap()
+                                         ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextInputColumn::make('pax')
                                               ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('cost_calculator')
