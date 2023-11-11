@@ -53,9 +53,11 @@
                 <th class="text-center">
                     {{ $itinerary->theme }}
                 </th>
-                <th class="text-end text-nowrap" style="width: 25%;">
-                    TOTAL: Rp{{ number_format($itinerary->total_for_the_day, 0, ',', '.') }}
-                </th>
+                @unless(request()->has('no_budget'))
+                    <th class="text-end text-nowrap" style="width: 25%;">
+                        TOTAL: Rp{{ number_format($itinerary->total_for_the_day, 0, ',', '.') }}
+                    </th>
+                @endunless
             </tr>
             <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <td style="width: 25%;">
@@ -73,13 +75,15 @@
                         </small>
                     @endif
                 </td>
-                <td class="text-end" style="width: 25%;">
-                    @if($itinerary->accomodation)
-                        @ Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
-                        x {{ $itinerary->room_count }}
-                        = <strong>Rp{{ number_format($itinerary->accomodation_cost, 0, ',', '.') }}</strong>
-                    @endif
-                </td>
+                @unless(request()->has('no_budget'))
+                    <td class="text-end" style="width: 25%;">
+                        @if($itinerary->accomodation)
+                            @ Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
+                            x {{ $itinerary->room_count }}
+                            = <strong>Rp{{ number_format($itinerary->accomodation_cost, 0, ',', '.') }}</strong>
+                        @endif
+                    </td>
+                @endunless
             </tr>
             <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                 <td style="width: 25%;">
@@ -97,13 +101,15 @@
                         </small>
                     @endif
                 </td>
-                <td class="text-end" style="width: 25%;">
-                    @if($itinerary->transportation)
-                        Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
-                        + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}km)
-                        = <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
-                    @endif
-                </td>
+                @unless(request()->has('no_budget'))
+                    <td class="text-end" style="width: 25%;">
+                        @if($itinerary->transportation)
+                            Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
+                            + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}km)
+                            = <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
+                        @endif
+                    </td>
+                @endunless
             </tr>
             @if($itinerary->notes)
                 <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
@@ -113,7 +119,9 @@
                             {!! $itinerary->notes !!}
                         </em>
                     </td>
-                    <td></td>
+                    @unless(request()->has('no_budget'))
+                        <td></td>
+                    @endunless
                 </tr>
             @endif
             @foreach($itinerary->schedules as $schedule)
@@ -134,15 +142,17 @@
                             </em>
                         @endif
                     </td>
-                    <td class="text-end" style="width: 25%;">
-                        @if($schedule->price_per_pax)
-                            @ Rp{{ number_format($schedule->price_per_pax, 0, ',', '.') }}
-                            x {{ $schedule->pax }}
-                        @endif
-                        @if($schedule->total_cost)
-                            = <strong>Rp{{ number_format($schedule->total_cost, 0, ',', '.') }}</strong>
-                        @endif
-                    </td>
+                    @unless(request()->has('no_budget'))
+                        <td class="text-end" style="width: 25%;">
+                            @if($schedule->price_per_pax)
+                                @ Rp{{ number_format($schedule->price_per_pax, 0, ',', '.') }}
+                                x {{ $schedule->pax }}
+                            @endif
+                            @if($schedule->total_cost)
+                                = <strong>Rp{{ number_format($schedule->total_cost, 0, ',', '.') }}</strong>
+                            @endif
+                        </td>
+                    @endunless
                 </tr>
             @endforeach
         @endforeach
