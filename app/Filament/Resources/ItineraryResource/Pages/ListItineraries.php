@@ -18,10 +18,10 @@ class ListItineraries extends ListRecords
         return [
             Actions\Action::make('calendar')
                           ->url('/calendar', true),
-            Actions\Action::make('Print With Budget')
-                          ->url('/', true),
             Actions\Action::make('Print')
-                          ->url('/?no_budget', true),
+                          ->url('/', true),
+            Actions\Action::make('Print With Budget')
+                          ->url('/?with_budget', true),
             Actions\CreateAction::make(),
         ];
     }
