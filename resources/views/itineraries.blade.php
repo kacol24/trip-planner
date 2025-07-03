@@ -12,7 +12,7 @@
     <meta name="msapplication-TileColor" content="#989898">
     <meta name="theme-color" content="#989898">
 
-    <title>Bali Trip Itinerary 23 DES 2023 - 02 JAN 2024</title>
+    <title>{{ config('app.name') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
@@ -21,7 +21,7 @@
             white-space: nowrap;
             max-width: 100%;
             overflow-x: hidden;
-            display: inline-block;
+            /*display: inline-block;*/
         }
 
         td p {
@@ -59,58 +59,55 @@
                     </th>
                 @endif
             </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
-                <td style="width: 25%;">
-                    AKOMODASI
-                </td>
-                <td style="width: 50%;">
-                    @if($itinerary->accomodation)
+            @if($itinerary->accomodation)
+                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+                    <td style="width: 25%;">
+                        AKOMODASI
+                    </td>
+                    <td style="width: 50%;">
                         <div class="fw-bold">
-                            {{ optional($itinerary->accomodation)->name }}
+                            {{ $itinerary->accomodation->name }}
                         </div>
-                    @endif
-                    @if($itinerary->accomodation)
-                        <small class="text-muted">
-                            {!! optional($itinerary->accomodation)->notes !!}
-                        </small>
-                    @endif
-                </td>
-                @if(request()->has('with_budget'))
-                    <td class="text-end" style="width: 25%;">
-                        @if($itinerary->accomodation)
+                        @if($itinerary->accomodation->notes)
+                            <small class="text-muted">
+                                {!! $itinerary->accomodation->notes !!}
+                            </small>
+                        @endif
+                    </td>
+                    @if(request()->has('with_budget') && $itinerary->accomodation_cost)
+                        <td class="text-end" style="width: 25%;">
                             @ Rp{{ number_format($itinerary->room_rate, 0, ',', '.') }}
                             x {{ $itinerary->room_count }}
                             = <strong>Rp{{ number_format($itinerary->accomodation_cost, 0, ',', '.') }}</strong>
-                        @endif
+                        </td>
+                    @endif
+                </tr>
+            @endif
+            @if($itinerary->transportation)
+                <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
+                    <td style="width: 25%;">
+                        TRANSPORTASI
                     </td>
-                @endif
-            </tr>
-            <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
-                <td style="width: 25%;">
-                    TRANSPORTASI
-                </td>
-                <td style="width: 50%;">
-                    @if($itinerary->transportation)
+                    <td style="width: 50%;">
                         <div class="fw-bold">
-                            {{ optional($itinerary->transportation)->name }}
+                            {{ $itinerary->transportation->name }}
                         </div>
-                    @endif
-                    @if($itinerary->distance)
-                        <small class="text-muted">
-                            ({{ $itinerary->distance }}km)
-                        </small>
-                    @endif
-                </td>
-                @if(request()->has('with_budget'))
-                    <td class="text-end" style="width: 25%;">
-                        @if($itinerary->transportation)
-                            Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
-                            + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}km)
-                            = <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
+                        @if($itinerary->distance)
+                            <small class="text-muted">
+                                ({{ $itinerary->distance }}km)
+                            </small>
                         @endif
                     </td>
-                @endif
-            </tr>
+                    @if(request()->has('with_budget') && $itinerary->transportation_cost)
+                        <td class="text-end" style="width: 25%;">
+                            Rp{{ number_format($itinerary->transportation_rate, 0, ',', '.') }}
+                            + Rp{{ number_format($itinerary->fuel_cost, 0, ',', '.') }} ({{ $itinerary->distance }}
+                            km)
+                            = <strong>Rp{{ number_format($itinerary->transportation_cost, 0, ',', '.') }}</strong>
+                        </td>
+                    @endif
+                </tr>
+            @endif
             @if($itinerary->notes)
                 <tr class="{{ $loop->even ? 'table-secondary border-dark' : '' }}">
                     <td></td>

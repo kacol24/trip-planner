@@ -12,7 +12,7 @@
     <meta name="msapplication-TileColor" content="#989898">
     <meta name="theme-color" content="#989898">
 
-    <title>Bali Trip Itinerary 23 DES 2023 - 02 JAN 2024</title>
+    <title>{{ config('app.name') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
@@ -21,7 +21,7 @@
             white-space: nowrap;
             max-width: 100%;
             overflow-x: hidden;
-            display: inline-block;
+            /*display: inline-block;*/
         }
     </style>
 </head>
